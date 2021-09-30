@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-myMod:log("GP | " .. "io.lua " .. GP:version())
+GP:log("jobs.lua", GP:version())
 
 
 -- GP FOUNDATION FUNCTION Write
