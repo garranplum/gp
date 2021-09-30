@@ -150,6 +150,7 @@ function GP:serializeTable(incomingTable, tableString, indent)
         -- Get the next item's key and value from the table.
         local itemKey, itemValue = next(incomingTable)
 
+
         GP:log("serializing", itemKey)
 
         -- Create a string version of the key and value.
@@ -181,14 +182,19 @@ function GP:serializeTable(incomingTable, tableString, indent)
             stringKey = ""
         end
 
-        -- If the itemValue is a table, serialize it.
-        if GP:isTable(itemValue) then
+        -- If the itemValue is a table and not the Lua global _G, serialize it.
+        if GP:isTable(itemValue) and not itemKey == "_G" then
             stringValue, isArray = GP:serializeTable(itemValue, nil, indent + 1)
             indent = indent - 1
         end
 
         -- Format the string key and value in Lua form: [Category = "PLUM",]
         local itemString = stringKey .. stringValue .. [[, ]]
+
+        -- Don't serialize the Lua global table, _G.
+        if itemKey == "_G" then
+            itemString = ""
+        end
 
         -- Remove the item from the table.
         incomingTable[itemKey] = nil

@@ -35,32 +35,3 @@ function GP:logTable(label, incomingTable)
     if (not incomingTable) then incomingTable, label = label, "keys" end
     myMod:log(label .. ":", GP:serializeTable(incomingTable))
 end
-
--- GP FOUNDATION FUNCTION Write
--- Writes a string to a file. Default = "GP.log".
--- I/O EFFECT
-function GP:write(fileContent, fileName)
-
-    -- Set a default fileName if one isn't provided.
-    fileName = fileName or "GP.log"
-
-    -- Setup for return status.
-    local isWriteSuccessful = false
-
-    -- Call the Foundation function to write the file and grab the return boolean.
-    isWriteSuccessful = myMod:writeFileAsString(fileName, fileContent)
-end
-
--- GP FOUNDATION FUNCTION Write Table
--- Writes a table to a file. Default = "GP {tableID}.log".
--- I/O EFFECT
-function GP:writeTable(incomingTable, fileName)
-
-    -- Set a default fileName if one isn't provided.
-    fileName = fileName or "GPtable.log"
-
-    -- Write the table serialized as a string.
-    GP:write(GP:serializeTable(incomingTable), fileName)
-end
-
-

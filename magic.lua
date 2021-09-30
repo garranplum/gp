@@ -22,7 +22,9 @@ local magicWords = {
     path = {namePrefix = "Path_"},
     category = {namePrefix = "CATEGORY_"},
     generator = {idSuffix = "_GENERATOR", functionIdSuffix = "_GENERATOR_BASE"},
-    job = {descSuffix = "_DESC"}
+    job = {descSuffix = "_DESC"},
+    log = {folder = "logs"},
+    overrides = {folder = "settings"},
 }
 
 -- GP FUNCTION Magic Words
