@@ -9,8 +9,6 @@ local myMod, GP = ...
 
 myMod:log("GP | " .. "io.lua " .. GP:version())
 
-z
-
 
 -- GP FOUNDATION FUNCTION Write
 -- Writes a string to a file. Default = "GP.log".
