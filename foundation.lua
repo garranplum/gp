@@ -23,7 +23,7 @@ function GP:log(...)
     local messages = {...}
     local logMessage = ""
     for index, message in pairs(messages) do
-        logMessage = logMessage .. " " .. message
+        logMessage = logMessage .. " " .. tostring(message)
     end
     myMod:log("GP |" .. logMessage)
 end

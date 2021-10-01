@@ -7,7 +7,7 @@
 local myMod, GP, configFile = ...
 
 -- DECLARE: GPS Version
-local version = "3.1"
+local version = "3.1.1"
 
 -- FUNCTION: Version
 -- Return GPS version number inside GP functions.
@@ -65,9 +65,6 @@ GP:load("gp/buildings.lua")
 -- EXECUTE FILE: Custom Configuration
 -- Declares custom settings for this individual mod.
 GP:load("settings/" .. configFile)
-
--- LOGGING: Custom Config
-GP:writeTable(GP:config(), "remixConfig.lua")
 
 -- EXECUTE FILE: Job Registration Functions
 -- Registers all jobs named in the config.
