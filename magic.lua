@@ -25,6 +25,7 @@ local magicWords = {
     job = {descSuffix = "_DESC"},
     log = {folder = "logs"},
     overrides = {folder = "settings"},
+    config = {folder = "settings"},
 }
 
 -- GP FUNCTION Magic Words

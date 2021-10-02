@@ -7,7 +7,7 @@
 local myMod, GP, configFile = ...
 
 -- DECLARE: GPS Version
-local version = "3.1.1"
+local version = "3.2.1"
 
 -- FUNCTION: Version
 -- Return GPS version number inside GP functions.
@@ -38,6 +38,63 @@ GP:load("gp/magic.lua")
 -- Defines functions that return string literals for Foundation datatypes.
 GP:load("gp/datatypes.lua")
 
+-- CLOSURE: Turn config file closure into config table closure.
+local configPath = GP:magicWords().config.folder .. "/" .. configFile
+GP:log("config path",configPath)
+GP:load(configPath)
+local config = GP.loaded
+
+
+
+-- GP Function Config
+-- Returns a copy of the remixed, canonized configuration.
+-- CLOSURE, IDEMPOTENT
+function GP:config()
+
+    -- Sugar for config.modName
+    local modName = config.modName
+
+    -- Create a remix monument.
+    config.monuments[modName] = config.monuments[modName] or {Categories = {}}
+
+    -- Remix each category on the list.
+    for category, partsList in pairs(config.remix) do
+
+        -- Add the category in config.categories.
+        config.categories[category] = config.categories[category] or {}
+
+        -- Remix each part in the category.
+        for index, partId in ipairs(partsList) do
+
+            -- Build a partEntry
+            local partEntry = config.categories[category][partId] or {}
+
+            -- Remixed parts are asset registered and building registered by default.
+            partEntry.AssetRegistered = partEntry.AssetRegistered or true
+            partEntry.BuildingRegistered = partEntry.BuildingRegistered or true
+            
+            -- Add the partEntry to the config category
+            config.categories[category][partId] = partEntry
+
+        end
+
+        -- Add the category to the monument if not already in config.
+        if not (config.monuments[modName].Categories[category]) then
+            config.monuments[modName].Categories[category] = {}
+        end
+
+    end
+
+    GP:writeTable(config)
+
+    -- Return canonized copy.
+    return GP:copyTable(config)
+end
+
+-- IMPERATIVE: Load Config
+GP:config();
+
+
 -- EXECUTE FILE: Prefab Functions
 -- Defines prefab registration functions used by all GP mods.
 GP:load("gp/prefabs.lua")
@@ -61,10 +118,6 @@ GP:load("gp/parts.lua")
 -- EXECUTE FILE: Building & Monument Functions
 -- Defines building and monument registration functions used by all GP mods.
 GP:load("gp/buildings.lua")
-
--- EXECUTE FILE: Custom Configuration
--- Declares custom settings for this individual mod.
-GP:load("settings/" .. configFile)
 
 -- EXECUTE FILE: Job Registration Functions
 -- Registers all jobs named in the config.
