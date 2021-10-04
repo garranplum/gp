@@ -15,7 +15,7 @@ local magicWords = {
         separator = "_Part",
         idPrefix = "BUILDING_PART_",
         descSuffix = "_DESC",
-        overrides = "GP_OVERRIDE_PART_LIST"
+        overrides = "GP_OVERRIDE_PART_LIST",
     },
     prefab = {folder = "Prefab", idPrefix = "PREFAB_"},
     model = {folder = "models", extension = ".fbx"},

@@ -56,7 +56,7 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
         Id = workplaceName,
         Name = workplaceName,
         WorkerCapacity = workplaceConfig.Positions,
-        RelatedJob = {Job = workplaceConfig.Job, Behavior = GP.datatypes().job.behavior},
+        RelatedJob = {Job = workplaceConfig.Job, Behavior = workplaceConfig.Behavior or GP.datatypes().job.behavior},
         InputInventoryCapacity = resourceProducedList,
         ResourceListNeeded = resourceRequiredList,
     })

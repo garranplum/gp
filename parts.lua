@@ -9,59 +9,87 @@ local myMod, GP = ...
 
 GP:log("parts.lua", GP:version())
 
--- GP FUNCTION Register Category Buildings
+-- 1ST CLASS FUNCTION Register Category Buildings
 -- Register all the building parts in a single category in a model file.
 -- FUNCTIONAL, GAME EFFECT CALL
-function GP:registerCategoryBuildingParts(modelFileName, category, categoryParts)
+function GP.registerCategoryBuildingParts(category, config)
+
+      -- Sugar for categoryParts
+      local categoryParts = config.categories[category]
+
+      GP:writeTable(categoryParts,category .. ".log")
+
     for partName, partConfig in pairs(categoryParts) do
+
+        -- Register resource containers, if any
+        -- GP:registerResourceContainer(category, partName, config)
+
         if (not partConfig.BuildingRegistered) then
-            GP:registerBuildingPart(category, partName, partConfig)
+            GP:log("calling register", partName)
+            GP.registerBuildingPart(category, partName, config)
         else
+            GP:log("calling override", partName)
             GP:override(partName)
         end
     end
 end
 
--- FUNCTION Register Building Part Types
--- Register all the buildling part types in a category.
+
+
+
+
+-- 1ST CLASS FUNCTION Register Building Part Type
+-- Register a single building part type enum value.
 -- FUNCTIONAL, GAME EFFECT
-function GP:registerBuildingPartTypes(categoryArray)
-    for index, category in ipairs(categoryArray) do
-        GP.mod:registerEnumValue(GP:datatypes().part.type, category)
-    end
+function GP.registerBuildingPartType(category)
+    GP.mod:registerEnumValue(GP:datatypes().part.type, category)
 end
 
--- FUNCTION Register Building Part
+-- 1ST CLASS FUNCTION Register Building Part
 -- Register a single building part within a category.
 -- FUNCTIONAL, GAME EFFECT
-function GP:registerBuildingPart(category, partName, partConfig)
+function GP.registerBuildingPart(category, partName, config)
+
+      -- Sugar for partConfig
+      local partConfig = config.categories[category][partName]
+
     local partId = GP:partId(partName)
-    local prefabId = GP:prefabId(partName)
-    if (partConfig.AssetRegistered) then prefabId = string.upper(prefabId) end
+    GP:log("registering part", partId)
+    local prefabId = partName
+    if not partConfig.AssetRegistered then 
+        prefabId = GP:prefabId(partName) 
+    end
+    GP:log("using prefab", prefabId)
     local buildingFunction = partConfig.Function
-    GP.mod:register({
+
+    local finalRegistration = {
         DataType = GP:datatypes().building.part,
         Id = partId,
-        AssetBuildingFunction = buildingFunction,
         Name = partName,
         Description = partName .. GP:magicWords().part.descSuffix,
-        Category = category,
-        IsMovableWhenBuilt = true,
         ConstructorData = {
             DataType = GP:datatypes().building.constructor,
             CoreObjectPrefab = prefabId
         },
-        BuildingZone = {
-            ZoneEntryList = {
-                {
-                    Polygon = polygon.createCircle(1, {0, 0}, 6),
-                    Type = {
-                        DEFAULT = true,
-                        NAVIGABLE = false,
-                        GRASS_CLEAR = true
-                    }
-                }
-            }
-        }
-    })
+        AssetBuildingFunction = buildingFunction,
+        IsMovableWhenBuilt = true, 
+        -- Category = category,
+   
+        -- BuildingZone = {
+        --     ZoneEntryList = {
+        --         {
+        --             Polygon = polygon.createCircle(1, {0, 0}, 6),
+        --             Type = {
+        --                 DEFAULT = true,
+        --                 NAVIGABLE = false,
+        --                 GRASS_CLEAR = true
+        --             }
+        --         }
+        --     }
+        -- }
+    }
+
+    GP:writeTable(finalRegistration, "partRegistration-" .. partName .. ".log")
+    GP.mod:register(finalRegistration)
+
 end

@@ -26,9 +26,6 @@ function GP:registerModelFiles()
             GP:magicWords().model.folder .. "/" .. modelFile ..
                 GP:magicWords().model.extension
 
-        -- Register building part types for each category in the file.           
-        GP:registerBuildingPartTypes(categoryKeyArray)
-
         -- Register prefabs for each category in the file.
         for index, categoryKey in ipairs(categoryKeyArray) do
 
@@ -56,9 +53,6 @@ function GP:registerModelFiles()
             -- Register all path nodes and types to all parts in the category.
             GP:registerPartPaths(modelFileName, categoryKey, config)
 
-            -- Register all building parts in the category.
-            GP:registerCategoryBuildingParts(modelFileName, categoryKey,
-                                             categoryPartsList)
         end
     end
 end

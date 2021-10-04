@@ -23,6 +23,7 @@ local datatypes = {
         registrationType = "COMP_BUILDING_PART",
         type = "BUILDING_PART_TYPE",
         costList = "BUILDING_PART_COST_LIST",
+        default = "BUILDING_CONSTRUCTOR_DEFAULT",
     },
     workplace = {registrationType = "BUILDING_FUNCTION_WORKPLACE"},
     job = {
@@ -32,6 +33,7 @@ local datatypes = {
     },
     action = {append = "APPEND"},
     override = {balancing = "DEFAULT_BALANCING"},
+    resource = {container = "COMP_RESOURCE_CONTAINER"}
 }
 
 local datatype

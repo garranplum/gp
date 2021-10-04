@@ -15,13 +15,8 @@ function GP:startMod()
     -- Sugar for GP:config()
     local config = GP:config()
 
-    -- LOGGING: Custom Config
-    GP:writeTable(config, "remixConfig.lua")
-
     GP:log("Starting", config.modName, GP:version(), _VERSION)
-
-    -- Log remixed config for diagnostics and development.
-    GP:writeTable(config, "remixConfig.log")
+    GP:writeTable(config)
 
     -- STARTUP Register Model Files
     GP:registerModelFiles()
@@ -34,12 +29,6 @@ function GP:startMod()
 
     -- STARTUP Register Monument
     GP:registerMonumentList()
-
-    for key, value in pairs(_G) do
-        if GP:isTable(value) and not key == "_G" then
-            GP:writeTable(value, key .. ".log")
-        end
-    end
 
 end
 

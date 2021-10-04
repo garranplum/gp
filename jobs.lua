@@ -20,6 +20,22 @@ function GP:registerAllJobs()
     for jobName, jobConfig in pairs(jobsList) do
         GP:registerJob(jobName, jobConfig)
     end
+
+
+    GP:log("registering comp resource container")
+-- RESOURCE CONTAINER Berries
+myMod:registerPrefabComponent("PREFAB_BASKET_BERRIES_PART", {
+    DataType = "COMP_RESOURCE_CONTAINER",
+    ResourceData = "BERRIES",
+    IsReplenishable = true,
+    ReplenishDurationInDays = 7,
+    ReplenishQuantity = 10,
+    ResourceValue = 5.0, -- How many to pick each time?
+    AvailableQuantity = 50, -- Maximum storage.
+    Radius = .55, -- Villager stands this far away to pick.
+    IsDestroyWhenEmpty = false
+})
+
 end
 
 -- FUNCTION Register Job

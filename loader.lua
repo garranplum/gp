@@ -85,8 +85,6 @@ function GP:config()
 
     end
 
-    GP:writeTable(config)
-
     -- Return canonized copy.
     return GP:copyTable(config)
 end

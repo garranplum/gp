@@ -26,11 +26,14 @@ function GP:map(incomingTable, mapFunction, ...)
         -- Apply the function to the item with all its arguments.
         mapFunction(item, unpack(arguments))
 
-        -- Remove the item from the list.
-        incomingTable[item] = nil
+        -- Copy the table so as not to affect it.
+        local copiedTable = GP:copyTable(incomingTable)
+
+        -- Remove the item from the copied table.
+        copiedTable[item] = nil
 
         -- Call this function recursively to process the rest of the list.
-        GP:map(incomingTable, mapFunction, unpack(arguments))
+        GP:map(copiedTable, mapFunction, unpack(arguments))
     end
 end
 
@@ -149,9 +152,6 @@ function GP:serializeTable(incomingTable, tableString, indent)
 
         -- Get the next item's key and value from the table.
         local itemKey, itemValue = next(incomingTable)
-
-
-        GP:log("serializing", itemKey)
 
         -- Create a string version of the key and value.
         local stringKey, stringValue = "", ""
