@@ -108,7 +108,7 @@ function GP.registerMonument(buildingName, config)
 
     end
 
-    myMod:register({
+    GP:register({
         DataType = GP.datatypes().building.registrationType,
         Id = GP:magicWords().building.idPrefix .. buildingName,
         Name = buildingName,
@@ -129,7 +129,7 @@ function GP.registerBuilding(buildingName, config)
     -- Sugar for buildingConfig
     local buildingConfig = config.monuments[buildingName]
 
-    myMod:register({
+    GP:register({
         DataType = GP.datatypes().building.registrationType,
         Id = GP:magicWords().building.idPrefix .. buildingName,
         Name = buildingName,

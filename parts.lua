@@ -17,8 +17,6 @@ function GP.registerCategoryBuildingParts(category, config)
       -- Sugar for categoryParts
       local categoryParts = config.categories[category]
 
-      GP:writeTable(categoryParts,category .. ".log")
-
     for partName, partConfig in pairs(categoryParts) do
 
         -- Register resource containers, if any
@@ -89,7 +87,6 @@ function GP.registerBuildingPart(category, partName, config)
         -- }
     }
 
-    GP:writeTable(finalRegistration, "partRegistration-" .. partName .. ".log")
-    GP.mod:register(finalRegistration)
+    GP:register(finalRegistration)
 
 end

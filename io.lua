@@ -31,7 +31,7 @@ function GP:write(fileContent, fileName)
 end
 
 -- GP FOUNDATION FUNCTION Write Table
--- Writes a table to a file. Default = "GPtable.log".
+-- Writes a table to a file. Default = [modName].log
 -- I/O EFFECT
 function GP:writeTable(incomingTable, fileName)
 

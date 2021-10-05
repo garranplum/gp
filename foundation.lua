@@ -35,3 +35,41 @@ function GP:logTable(label, incomingTable)
     if (not incomingTable) then incomingTable, label = label, "keys" end
     myMod:log(label .. ":", GP:serializeTable(incomingTable))
 end
+
+-- GP FOUNDATION FUNCTION Register
+-- Log and call a generic game component registration.
+-- GAME EFFECT
+function GP:register(registrationTable)
+
+    -- Extract the ID being registered.
+    local regId = registrationTable.Id
+
+    -- Create a filename.
+    local regFile = regId .. ".log"
+
+    -- Log it.
+    GP:writeTable(registrationTable, regFile)
+
+    -- Do the registration.
+    myMod:register(registrationTable)
+
+end
+
+-- GP FOUNDATION FUNCTION Register Prefab
+-- Log and register a prefab from a path.
+-- GAME EFFECT
+function GP:registerPrefab(path, registrationTable)
+
+    -- Extract the ID being registered.
+    local regId = registrationTable.Id
+
+    -- Create a filename.
+    local regFile = "PREFAB " .. regId .. ".log"
+
+    -- Log it.
+    GP:writeTable(registrationTable, regFile)
+
+    -- Do the registration.
+    myMod:registerPrefabComponent(path, registrationTable)
+
+end

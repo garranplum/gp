@@ -69,7 +69,5 @@ function GP:registerResourceContainer(category, partName, config)
         IsDestroyWhenEmpty = false
     }
 
-    GP:writeTable(finalRegistration, "prefabContainer.log")
-
     myMod:registerPrefabComponent(partName, finalRegistration)
 end

@@ -62,9 +62,7 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
         ResourceListNeeded = resourceRequiredList,
     }
 
-    GP:writeTable(finalRegistration, workplaceName .. ".log")
-
-    myMod:register(finalRegistration)
+    GP:register(finalRegistration)
 end
 
 
