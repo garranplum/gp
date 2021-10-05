@@ -51,15 +51,20 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
         table.insert(resourceRequiredList, resourceRequiredItem)
     end
 
-    myMod:register({
+    local finalRegistration = {
         DataType = GP:datatypes().workplace.registrationType,
         Id = workplaceName,
         Name = workplaceName,
         WorkerCapacity = workplaceConfig.Positions,
         RelatedJob = {Job = workplaceConfig.Job, Behavior = workplaceConfig.Behavior or GP.datatypes().job.behavior},
         InputInventoryCapacity = resourceProducedList,
+        ResourceProduced = resourceProducedList,
         ResourceListNeeded = resourceRequiredList,
-    })
+    }
+
+    GP:writeTable(finalRegistration, workplaceName .. ".log")
+
+    myMod:register(finalRegistration)
 end
 
 
