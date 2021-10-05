@@ -55,16 +55,13 @@ function GP:register(registrationTable)
 
 end
 
--- GP FOUNDATION FUNCTION Register Prefab
--- Log and register a prefab from a path.
+-- GP FOUNDATION FUNCTION Register Asset
+-- Log and register an asset from a file path.
 -- GAME EFFECT
-function GP:registerPrefab(path, registrationTable)
-
-    -- Extract the ID being registered.
-    local regId = registrationTable.Id
+function GP:registerAsset(path, newId, assetType)
 
     -- Create a filename.
-    local regFile = "PREFAB " .. regId .. ".log"
+    local regFile = assetType .. " " .. regId .. ".log"
 
     -- Log it.
     GP:writeTable(registrationTable, regFile)

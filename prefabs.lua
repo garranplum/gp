@@ -4,7 +4,6 @@
 -- Functions that register prefabs.
 -- 
 -- FUNCTION ASSIGNMENTS
-
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
@@ -30,9 +29,11 @@ end
 
 -- GP FUNCTION Register Prefab
 -- Register a single prefab in a model file.
--- FUNCTIONAL, GAME EFFECT
+-- FUNCTIONAL, GAME EFFECT CALL
 function GP:registerPrefab(modelFileName, partName)
-    GP.mod:registerAssetId(GP:prefabPath(modelFileName, partName), GP:prefabId(partName))
+    GP:registerAsset(GP:prefabPath(modelFileName, partName),
+                     GP:prefabId(partName),
+                     GP:datatypes().prefab.registrationType)
 end
 
 -- FUNCTION Register Resource Container
@@ -44,9 +45,7 @@ function GP:registerResourceContainer(category, partName, config)
     local partConfig = config.categories[category][partName]
 
     -- Not a resource container? Early return.
-    if not partConfig.Produces then
-        return
-    end
+    if not partConfig.Produces then return end
 
     -- Extract unitsPerWeek
     local partProduces, unitsPerWeek = next(partConfig.Produces)
@@ -55,7 +54,8 @@ function GP:registerResourceContainer(category, partName, config)
     local pickRate = unitsPerWeek / 2
     local maxStorage = unitsPerWeek * 5
 
-    GP:log("partName", partName, "partProduces", partProduces, "unitsPerWeek", unitsPerWeek)
+    GP:log("partName", partName, "partProduces", partProduces, "unitsPerWeek",
+           unitsPerWeek)
 
     local finalRegistration = {
         DataType = GP:datatypes().resource.container,

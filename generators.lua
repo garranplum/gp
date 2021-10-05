@@ -44,7 +44,7 @@ function GP:registerGenerator(generatorConfig)
 for resource, maxQty in pairs(generatorConfig.Produces) do
 
     -- BUILDING FUNCTION RESOURCE GENERATOR (Parent) Properties
-    myMod:register({
+    GP:register({
         DataType = GP:datatypes().building.generatorFunction,
         Id = resource .. GP:magicWords().generator.functionIdSuffix,
         ResourceGenerated = resource,
@@ -53,7 +53,7 @@ for resource, maxQty in pairs(generatorConfig.Produces) do
     })
 
     -- BUILDING RESOURCE GENERATOR (New) Properties
-    myMod:register({
+    GP:register({
         DataType = GP:datatypes().building.generator,
         Id = resource .. GP:magicWords().generator.idSuffix,
         Name = resource .. GP:magicWords().generator.idSuffix,

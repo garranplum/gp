@@ -25,6 +25,9 @@ local datatypes = {
         costList = "BUILDING_PART_COST_LIST",
         default = "BUILDING_CONSTRUCTOR_DEFAULT",
     },
+    prefab = {
+        registrationType = "PREFAB"
+    },
     workplace = {registrationType = "BUILDING_FUNCTION_WORKPLACE"},
     job = {
         registrationType = "JOB",
