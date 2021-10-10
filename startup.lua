@@ -6,7 +6,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("startup.lua", GP:version())
+GP:log("startup.lua")
 
 -- FUNCTION Start Mod
 -- FUNCTIONAL, GAME EFFECT CALL

@@ -58,15 +58,9 @@ end
 -- GP FOUNDATION FUNCTION Register Asset
 -- Log and register an asset from a file path.
 -- GAME EFFECT
-function GP:registerAsset(path, newId, assetType)
-
-    -- Create a filename.
-    local regFile = assetType .. " " .. regId .. ".log"
-
-    -- Log it.
-    GP:writeTable(registrationTable, regFile)
+function GP:registerAsset(path, regId, assetType)
 
     -- Do the registration.
-    myMod:registerPrefabComponent(path, registrationTable)
+    myMod:registerAssetId(path, regId, assetType)
 
 end

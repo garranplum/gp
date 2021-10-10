@@ -8,7 +8,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("paths.lua", GP:version())
+GP:log("paths.lua")
 
 -- GP FUNCTION Register Part Paths
 -- Register path nodes and types for all parts in a single category in a model file.

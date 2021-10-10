@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("prefabs.lua", GP:version())
+GP:log("prefabs.lua")
 
 -- GP FUNCTION Register Category Prefabs
 -- Register all the prefabs in a single category in a model file.

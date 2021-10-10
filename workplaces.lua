@@ -6,7 +6,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("workplaces.lua", GP:version())
+GP:log("workplaces.lua")
 
 -- FUNCTION Register All Workplaces
 -- FUNCTIONAL, GAME EFFECT CALL
@@ -21,9 +21,9 @@ function GP:registerAllWorkplaces()
     for workplaceName, workplaceConfig in pairs(workplaceList) do
 
         if (workplaceConfig.Job) then
-        GP:registerWorkplace(workplaceName, workplaceConfig)
+            GP:registerWorkplace(workplaceName, workplaceConfig)
         else
-        GP:registerGenerator(workplaceConfig)
+            GP:registerGenerator(workplaceConfig)
         end
 
     end
@@ -35,19 +35,13 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
 
     local resourceProducedList = {}
     for oneResource, qty in pairs(workplaceConfig.Produces) do
-        local resourceProducedItem = {
-            Resource = oneResource,
-            Quantity = qty
-        }
+        local resourceProducedItem = {Resource = oneResource, Quantity = qty}
         table.insert(resourceProducedList, resourceProducedItem)
     end
 
     local resourceRequiredList = {}
     for oneResource, qty in pairs(workplaceConfig.Requires) do
-        local resourceRequiredItem = {
-            Resource = oneResource,
-            Quantity = qty
-        }
+        local resourceRequiredItem = {Resource = oneResource, Quantity = qty}
         table.insert(resourceRequiredList, resourceRequiredItem)
     end
 
@@ -56,14 +50,15 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
         Id = workplaceName,
         Name = workplaceName,
         WorkerCapacity = workplaceConfig.Positions,
-        RelatedJob = {Job = workplaceConfig.Job, Behavior = workplaceConfig.Behavior or GP.datatypes().job.behavior},
+        RelatedJob = {
+            Job = workplaceConfig.Job,
+            Behavior = workplaceConfig.Behavior or GP.datatypes().job.behavior
+        },
         InputInventoryCapacity = resourceProducedList,
         ResourceProduced = resourceProducedList,
-        ResourceListNeeded = resourceRequiredList,
+        ResourceListNeeded = resourceRequiredList
     }
 
     GP:register(finalRegistration)
 end
-
-
 

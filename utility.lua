@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("utility.lua", GP:version())
+GP:log("utility.lua")
 
 -- GP UTILITY FUNCTION Map
 -- Maps each item in incomingTable to mapFunction, passing the remaining arguments.

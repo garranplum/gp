@@ -5,7 +5,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("generators.lua", GP:version())
+GP:log("generators.lua")
 
 -- CLASS Building Resource Generator
 local BUILDING_RESOURCE_GENERATOR = {
@@ -16,15 +16,15 @@ local BUILDING_RESOURCE_GENERATOR = {
             Name = "ResourceGenerator",
             Type = "BUILDING_FUNCTION_RESOURCE_GENERATOR",
             Default = "BUILDING_FUNCTION_WELL"
-        }, 
-        {Name = "MaxQuantity", Type = "integer", Default = 50},
+        }, {Name = "MaxQuantity", Type = "integer", Default = 50},
         {Name = "GrowRate", Type = "float", Default = 1.0}
     }
 }
 
 -- EVENT Activate Building w/ This Generator 
 function BUILDING_RESOURCE_GENERATOR:activateBuilding(gameObject)
-    resourceGenerator = gameObject:getOrCreateComponent("COMP_RESOURCE_GENERATOR")
+    resourceGenerator = gameObject:getOrCreateComponent(
+                            "COMP_RESOURCE_GENERATOR")
     resourceGenerator:setResourceGeneratorData(self.ResourceGenerator)
     resourceGenerator:setMaxQuantity(self.MaxQuantity)
     resourceGenerator.GrowRate = self.GrowRate
@@ -40,29 +40,32 @@ end
 myMod:registerClass(BUILDING_RESOURCE_GENERATOR)
 
 function GP:registerGenerator(generatorConfig)
+    
+    
 
-for resource, maxQty in pairs(generatorConfig.Produces) do
+    for resource, maxQty in pairs(generatorConfig.Produces) do
 
-    -- BUILDING FUNCTION RESOURCE GENERATOR (Parent) Properties
-    GP:register({
-        DataType = GP:datatypes().building.generatorFunction,
-        Id = resource .. GP:magicWords().generator.functionIdSuffix,
-        ResourceGenerated = resource,
-        IsForConsumer = false,
-        IsInfinite = false
-    })
+        -- BUILDING FUNCTION RESOURCE GENERATOR (Parent) Properties
+        GP:register({
+            DataType = GP:datatypes().building.generatorFunction,
+            Id = resource .. GP:magicWords().generator.functionIdSuffix,
+            ResourceGenerated = resource,
+            IsForConsumer = false,
+            IsInfinite = false
+        })
 
-    -- BUILDING RESOURCE GENERATOR (New) Properties
-    GP:register({
-        DataType = GP:datatypes().building.generator,
-        Id = resource .. GP:magicWords().generator.idSuffix,
-        Name = resource .. GP:magicWords().generator.idSuffix,
-        ResourceGenerator = resource .. GP:magicWords().generator.functionIdSuffix,
-        MaxQuantity = maxQty,
-        GrowRate = generatorConfig.Rate
-    })
+        -- BUILDING RESOURCE GENERATOR (New) Properties
+        GP:register({
+            DataType = GP:datatypes().building.generator,
+            Id = resource .. GP:magicWords().generator.idSuffix,
+            Name = resource .. GP:magicWords().generator.idSuffix,
+            ResourceGenerator = resource ..
+                GP:magicWords().generator.functionIdSuffix,
+            MaxQuantity = maxQty,
+            GrowRate = generatorConfig.Rate
+        })
 
-end
+    end
 
 end
 

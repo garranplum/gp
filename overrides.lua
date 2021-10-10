@@ -5,7 +5,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("overrides.lua", GP:version())
+GP:log("overrides.lua")
 
 -- FUNCTION Override
 -- Applies free and moveable overrides to a single part.
@@ -20,7 +20,7 @@ function GP:override(partId)
     local randomId = GP:magicWords().part.overrides .. randomValue
 
     -- Register a cost list for this part with no required resources.
-    myMod:register({
+    GP:register({
         DataType = "BUILDING_PART_COST_LIST",
         Id = randomId,
         BuildingPartCostList = {

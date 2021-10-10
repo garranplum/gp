@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("buildings.lua", GP:version())
+GP:log("buildings.lua")
 
 -- FUNCTION Register Monument List
 -- Register all the monuments in the config.

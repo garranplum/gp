@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("parts.lua", GP:version())
+GP:log("parts.lua")
 
 -- 1ST CLASS FUNCTION Register Category Buildings
 -- Register all the building parts in a single category in a model file.
@@ -52,12 +52,10 @@ function GP.registerBuildingPart(category, partName, config)
       local partConfig = config.categories[category][partName]
 
     local partId = GP:partId(partName)
-    GP:log("registering part", partId)
     local prefabId = partName
     if not partConfig.AssetRegistered then 
         prefabId = GP:prefabId(partName) 
     end
-    GP:log("using prefab", prefabId)
     local buildingFunction = partConfig.Function
 
     local finalRegistration = {

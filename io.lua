@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("io.lua", GP:version())
+GP:log("io.lua")
 
 
 -- GP FOUNDATION FUNCTION Write
@@ -27,7 +27,6 @@ function GP:write(fileContent, fileName)
     -- Call the Foundation function to write the file and grab the return boolean.
     isWriteSuccessful = myMod:writeFileAsString(filePath, fileContent)
 
-    GP:log("wrote", filePath, isWriteSuccessful)
 end
 
 -- GP FOUNDATION FUNCTION Write Table

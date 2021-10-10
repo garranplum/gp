@@ -150,4 +150,4 @@ if GP.mod:fileExists(overridesPath) then
 end
 
 -- CALL: Log Finished Loading
-GP:log("Finished Loading", GP:config().modName, GP:version())
+GP:log("Finished Loading", GP:config().modName)
