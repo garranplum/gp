@@ -41,7 +41,7 @@ myMod:registerClass(BUILDING_RESOURCE_GENERATOR)
 
 function GP:registerGenerator(generatorConfig)
     
-    
+GP:log("registering generator")    
 
     for resource, maxQty in pairs(generatorConfig.Produces) do
 

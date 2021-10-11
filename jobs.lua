@@ -22,7 +22,6 @@ function GP:registerAllJobs()
     end
 
 
-    GP:log("registering comp resource container")
 -- RESOURCE CONTAINER Berries
 myMod:registerPrefabComponent("PREFAB_BASKET_BERRIES_PART", {
     DataType = "COMP_RESOURCE_CONTAINER",

@@ -23,10 +23,8 @@ function GP.registerCategoryBuildingParts(category, config)
         -- GP:registerResourceContainer(category, partName, config)
 
         if (not partConfig.BuildingRegistered) then
-            GP:log("calling register", partName)
             GP.registerBuildingPart(category, partName, config)
         else
-            GP:log("calling override", partName)
             GP:override(partName)
         end
     end

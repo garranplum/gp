@@ -17,13 +17,16 @@ function GP:registerMonumentList()
     -- Sugar for GP:config()
     local config = GP:config()
 
-    -- Map over the monument list, registering each building on the list.
+    -- Map over the monument list, registering each monument.
     GP:map(config.monuments, GP.registerMonument, config)
 
-    -- Map over categories, registering all part type enums
+    -- Map over building listing, registering each building.
+    GP:map(config.buildings, GP.registerBuilding, config)
+
+    -- Map over categories, registering each part type enum.
     GP:map(config.categories, GP.registerBuildingPartType)
 
-    -- Map over categories, registering all parts
+    -- Map over categories, registering each part.
     GP:map(config.categories, GP.registerCategoryBuildingParts, config)
     
 end
@@ -32,6 +35,8 @@ end
 -- Register a single monument building.
 -- FUNCTIONAL, GAME EFFECT
 function GP.registerMonument(buildingName, config)
+
+    GP:alert("registering monument", buildingName)
 
     -- Sugar for buildingConfig
     local buildingConfig = config.monuments[buildingName]
@@ -127,7 +132,9 @@ end
 function GP.registerBuilding(buildingName, config)
 
     -- Sugar for buildingConfig
-    local buildingConfig = config.monuments[buildingName]
+    local buildingConfig = config.buildings[buildingName]
+
+    GP:alert("registering building", buildingName)
 
     GP:register({
         DataType = GP.datatypes().building.registrationType,
@@ -136,8 +143,6 @@ function GP.registerBuilding(buildingName, config)
         Description = buildingName .. GP:magicWords().building.descSuffix,
         BuildingType = buildingConfig.Type,
         AssetBuildingFunction = buildingConfig.Function,
-        AssetCoreBuildingPart = GP:ids().monumentPole,
-        BuildingPartSetList = buildingPartsList,
-        RequiredPartList = requiredPartsList
+        AssetCoreBuildingPart = GP:partId(buildingConfig),
     })
 end

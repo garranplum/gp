@@ -40,11 +40,8 @@ GP:load("gp/datatypes.lua")
 
 -- CLOSURE: Turn config file closure into config table closure.
 local configPath = GP:magicWords().config.folder .. "/" .. configFile
-GP:log("config path",configPath)
 GP:load(configPath)
 local config = GP.loaded
-
-
 
 -- GP Function Config
 -- Returns a copy of the remixed, canonized configuration.
@@ -54,8 +51,24 @@ function GP:config()
     -- Sugar for config.modName
     local modName = config.modName
 
-    -- Create a remix monument.
-    config.monuments[modName] = config.monuments[modName] or {Categories = {}}
+    -- Create default building or monument.
+
+    -- Determine number of categories and parts in remix.
+    local categoryCount = #config.categories
+    local firstCategoryKey = next(config.categories)
+    local partsCount = #config.categories[firstCategoryKey]
+    local firstPart = config.categories[firstCategoryKey]
+
+    -- If more than one part or category, create a default monument.
+    if categoryCount > 1 or partsCount > 1 then
+        config.monuments[modName] = config.monuments[modName] or
+                                        {Categories = {}}
+    end
+
+    -- If only one part and category, create a default building.
+    if categoryCount == 1 and partsCount == 1 then
+        config.buildings[modName] = config.buildings[modName] or firstPart .. [[ = ]] .. config.categories[firstCategoryKey][firstPart]
+    end
 
     -- Remix each category on the list.
     for category, partsList in pairs(config.remix) do
@@ -72,7 +85,7 @@ function GP:config()
             -- Remixed parts are asset registered and building registered by default.
             partEntry.AssetRegistered = partEntry.AssetRegistered or true
             partEntry.BuildingRegistered = partEntry.BuildingRegistered or true
-            
+
             -- Add the partEntry to the config category
             config.categories[category][partId] = partEntry
 
@@ -91,7 +104,6 @@ end
 
 -- IMPERATIVE: Load Config
 GP:config();
-
 
 -- EXECUTE FILE: Prefab Functions
 -- Defines prefab registration functions used by all GP mods.
@@ -145,9 +157,7 @@ GP:startMod()
 -- Applies custom overrides to any built-in or defined objects.
 local overridesPath = GP:magicWords().overrides.folder .. "/" ..
                           "customOverrides.lua"
-if GP.mod:fileExists(overridesPath) then 
-    GP:load(overridesPath)
-end
+if GP.mod:fileExists(overridesPath) then GP:load(overridesPath) end
 
 -- CALL: Log Finished Loading
-GP:log("Finished Loading", GP:config().modName)
+GP:log("Finished loading", GP:config().modName)

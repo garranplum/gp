@@ -7,7 +7,7 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-myMod:log("GP | " .. "foundation.lua " .. GP:version())
+myMod:log("GP | " .. "foundation.lua ")
 
 -- GP FOUNDATION FUNCTION Load
 -- Loads and executes a Lua file from disk.
@@ -26,6 +26,18 @@ function GP:log(...)
         logMessage = logMessage .. " " .. tostring(message)
     end
     myMod:log("GP |" .. logMessage)
+end
+
+-- GP FOUNDATION FUNCTION Alert
+-- Writes a concatenated series of messages to an alert dialog.
+-- GAME EFFECT
+function GP:alert(...)
+    local messages = {...}
+    local logMessage = ""
+    for index, message in pairs(messages) do
+        logMessage = logMessage .. " " .. tostring(message)
+    end
+    myMod:msgBox("GP |" .. logMessage)
 end
 
 -- GP FOUNDATION FUNCTION Log Table
