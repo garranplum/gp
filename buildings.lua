@@ -36,8 +36,6 @@ end
 -- FUNCTIONAL, GAME EFFECT
 function GP.registerMonument(buildingName, config)
 
-    GP:alert("registering monument", buildingName)
-
     -- Sugar for buildingConfig
     local buildingConfig = config.monuments[buildingName]
 
@@ -128,8 +126,6 @@ function GP.registerBuilding(buildingName, config)
 
     -- Sugar for buildingConfig
     local buildingConfig = config.buildings[buildingName]
-
-    GP:alert("registering building", buildingName)
 
     GP:register({
         DataType = GP.datatypes().building.registrationType,
