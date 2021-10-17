@@ -19,9 +19,6 @@ function GP.registerCategoryBuildingParts(category, config)
 
     for partName, partConfig in pairs(categoryParts) do
 
-        -- Register resource containers, if any
-        -- GP:registerResourceContainer(category, partName, config)
-
         if (not partConfig.BuildingRegistered) then
             GP.registerBuildingPart(category, partName, config)
         else

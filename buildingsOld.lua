@@ -4,10 +4,11 @@
 -- Functions that register monuments and buildings.
 -- 
 -- FUNCTION ASSIGNMENTS
+
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("buildings.lua")
+GP:log("buildings.lua", GP:version())
 
 -- FUNCTION Register Monument List
 -- Register all the monuments in the config.
@@ -17,26 +18,15 @@ function GP:registerMonumentList()
     -- Sugar for GP:config()
     local config = GP:config()
 
-    -- Map over the monument list, registering each monument.
+    -- Map over the monument list, registering each building on the list.
     GP:map(config.monuments, GP.registerMonument, config)
-
-    -- Map over building listing, registering each building.
-    GP:map(config.buildings, GP.registerBuilding, config)
-
-    -- Map over categories, registering each part type enum.
-    GP:map(config.categories, GP.registerBuildingPartType)
-
-    -- Map over categories, registering each part.
-    GP:map(config.categories, GP.registerCategoryBuildingParts, config)
-    
 end
+
 
 -- 1ST CLASS FUNCTION Register Monument
 -- Register a single monument building.
 -- FUNCTIONAL, GAME EFFECT
 function GP.registerMonument(buildingName, config)
-
-    GP:alert("registering monument", buildingName)
 
     -- Sugar for buildingConfig
     local buildingConfig = config.monuments[buildingName]
@@ -56,9 +46,10 @@ function GP.registerMonument(buildingName, config)
     end
 
     -- For each category in the monument...
-    for index, categoryKey in ipairs(orderedCategoryKeys) do
+    for index, categoryKey in ipairs(
+        orderedCategoryKeys) do
 
-        categoryConfig = config.monuments[buildingName].Categories[categoryKey]
+        categoryConfig = config.monuments[buildingName].Categories[categoryKey]     
 
         -- Create a monument part set for the category
         local categoryPartSet = {
@@ -74,7 +65,7 @@ function GP.registerMonument(buildingName, config)
         for partKey, partConfig in pairs(categoryPartsList) do
             if (partConfig.Order) then
                 orderedPartKeys[partConfig.Order] = partKey
-            else
+            else   
                 table.insert(orderedPartKeys, partKey)
             end
         end
@@ -93,8 +84,14 @@ function GP.registerMonument(buildingName, config)
                 partPrefix = GP:magicWords().part.idPrefix
             end
 
+            -- If not a GP part, override it's cost, resources, moveable.
+            if partConfig.BuildingRegistered then
+                GP:override(partKey)
+            end
+
             -- Add the part to the category parts list
-            table.insert(categoryPartSet.BuildingPartList, partPrefix .. partKey)
+            table.insert(categoryPartSet.BuildingPartList,
+                         partPrefix .. partKey)
         end
 
         -- Add the category parts list to the monument
@@ -108,7 +105,7 @@ function GP.registerMonument(buildingName, config)
 
     end
 
-    GP:register({
+    myMod:register({
         DataType = GP.datatypes().building.registrationType,
         Id = GP:magicWords().building.idPrefix .. buildingName,
         Name = buildingName,
@@ -118,26 +115,5 @@ function GP.registerMonument(buildingName, config)
         AssetCoreBuildingPart = GP:ids().monumentPole,
         BuildingPartSetList = buildingPartsList,
         RequiredPartList = requiredPartsList
-    })
-end
-
--- 1ST CLASS FUNCTION Register Building
--- Register a single building with only one part.
--- FUNCTIONAL, GAME EFFECT
-function GP.registerBuilding(buildingName, config)
-
-    -- Sugar for buildingConfig
-    local buildingConfig = config.buildings[buildingName]
-
-    GP:alert("registering building", buildingName)
-
-    GP:register({
-        DataType = GP.datatypes().building.registrationType,
-        Id = GP:magicWords().building.idPrefix .. buildingName,
-        Name = buildingName,
-        Description = buildingName .. GP:magicWords().building.descSuffix,
-        BuildingType = buildingConfig.Type,
-        AssetBuildingFunction = buildingConfig.Function,
-        AssetCoreBuildingPart = GP:partId(buildingConfig),
     })
 end
