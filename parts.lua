@@ -64,20 +64,20 @@ function GP.registerBuildingPart(category, partName, config)
         },
         AssetBuildingFunction = buildingFunction,
         IsMovableWhenBuilt = true, 
-        -- Category = category,
+        Category = category,
    
-        -- BuildingZone = {
-        --     ZoneEntryList = {
-        --         {
-        --             Polygon = polygon.createCircle(1, {0, 0}, 6),
-        --             Type = {
-        --                 DEFAULT = true,
-        --                 NAVIGABLE = false,
-        --                 GRASS_CLEAR = true
-        --             }
-        --         }
-        --     }
-        -- }
+        BuildingZone = {
+            ZoneEntryList = {
+                {
+                    Polygon = polygon.createCircle(1, {0, 0}, 6),
+                    Type = {
+                        DEFAULT = true,
+                        NAVIGABLE = false,
+                        GRASS_CLEAR = true
+                    }
+                }
+            }
+        }
     }
 
     GP:register(finalRegistration)
