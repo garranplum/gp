@@ -18,6 +18,7 @@ function GP:version() return version end
 GP.mod:log("GPS " .. GP:version() .. " by Garran Plum")
 GP.mod:log("GP | " .. "https://mod.io/members/garranplum")
 
+
 -- EXECUTE FILE: Global Foundation Functions
 -- Defines Foundation-specific functions used by all GP mods.
 GP.mod:dofile("gp/foundation.lua", GP)
@@ -33,10 +34,6 @@ GP:load("gp/utility.lua")
 -- EXECUTE FILE: Global Magic Word Declarations & Functions
 -- Declares string literals used by all GP mods.
 GP:load("gp/magic.lua")
-
--- EXECUTE FILE: Global Datatype Declarations & Functions
--- Defines functions that return string literals for Foundation datatypes.
-GP:load("gp/datatypes.lua")
 
 -- CLOSURE: Turn config file closure into config table closure.
 local configPath = GP:magicWords().config.folder .. "/" .. configFile
@@ -104,6 +101,11 @@ end
 
 -- IMPERATIVE: Load Config
 GP:config();
+
+
+-- EXECUTE FILE: Global Datatype Declarations & Functions
+-- Defines functions that return string literals for Foundation datatypes.
+GP:load("gp/datatypes.lua")
 
 -- EXECUTE FILE: Prefab Functions
 -- Defines prefab registration functions used by all GP mods.
