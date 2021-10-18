@@ -54,7 +54,7 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
             Job = workplaceConfig.Job,
             Behavior = workplaceConfig.Behavior or GP.datatypes().job.behavior
         },
-        InputInventoryCapacity = resourceProducedList,
+        -- InputInventoryCapacity = resourceProducedList,
         ResourceProduced = resourceProducedList,
         ResourceListNeeded = resourceRequiredList
     }

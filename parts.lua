@@ -53,19 +53,18 @@ function GP.registerBuildingPart(category, partName, config)
     end
     local buildingFunction = partConfig.Function
 
-    local finalRegistration = {
+    GP.mod:register({
         DataType = GP:datatypes().building.part,
         Id = partId,
+        AssetBuildingFunction = buildingFunction,
         Name = partName,
         Description = partName .. GP:magicWords().part.descSuffix,
+        Category = category,
+        IsMovableWhenBuilt = true,
         ConstructorData = {
             DataType = GP:datatypes().building.constructor,
             CoreObjectPrefab = prefabId
         },
-        AssetBuildingFunction = buildingFunction,
-        IsMovableWhenBuilt = true, 
-        Category = category,
-   
         BuildingZone = {
             ZoneEntryList = {
                 {
@@ -78,8 +77,6 @@ function GP.registerBuildingPart(category, partName, config)
                 }
             }
         }
-    }
-
-    GP:register(finalRegistration)
+    })
 
 end
