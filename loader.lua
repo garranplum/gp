@@ -7,7 +7,7 @@
 local myMod, GP, configFile = ...
 
 -- DECLARE: GPS Version
-local version = "3.2.1"
+local version = "3.3.0"
 
 -- FUNCTION: Version
 -- Return GPS version number inside GP functions.

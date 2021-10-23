@@ -46,13 +46,13 @@ function GP:registerJob(jobName, jobConfig)
     })
 
     -- Job Allowed for Newcomers
-    myMod:override({
+    myMod:overrideAsset({
         Id = GP:ids().newcomer,
         CompatibleJobList = {Action = GP:datatypes().action.append, jobName}
     })
 
     -- Job Allowed for Serfs
-    myMod:override({
+    myMod:overrideAsset({
         Id = GP:ids().serf,
         CompatibleJobList = {Action = GP:datatypes().action.append, jobName}
     })

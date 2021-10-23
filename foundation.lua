@@ -63,7 +63,7 @@ function GP:register(registrationTable)
     GP:writeTable(registrationTable, regFile)
 
     -- Do the registration.
-    myMod:register(registrationTable)
+    myMod:registerAsset(registrationTable)
 
 end
 

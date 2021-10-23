@@ -24,6 +24,7 @@ function GP:registerCategoryPrefabs(modelFileName, category, config)
         if (not categoryPartsList[partName].AssetRegistered) then
             GP:registerPrefab(modelFileName, partName)
         end
+
     end
 end
 
@@ -36,10 +37,22 @@ function GP:registerPrefab(modelFileName, partName)
                      GP:datatypes().prefab.registrationType)
 end
 
--- FUNCTION Register Resource Container
+-- 1st CLASS FUNCTION Register Prefab Containers
+-- Registers all prefab resource containers in a category.
+-- FUNCTIONAL, GAME EFFECT CALL
+function GP.registerPrefabContainers(category, config)
+
+    -- Sugar for category parts
+    local categoryParts = config.categories[category]
+
+    -- Map over parts in the category, registering any resource container
+    GP:map(categoryParts, GP.registerResourceContainer, config)
+end
+
+-- 1st CLASS FUNCTION Register Resource Container
 -- Register a single prefab as a resource container.
 -- FUNCTIONAL, GAME EFFECT
-function GP:registerResourceContainer(category, partName, config)
+function GP.registerResourceContainer(partName, config)
 
     -- Sugar for partConfig
     local partConfig = config.categories[category][partName]
@@ -54,8 +67,7 @@ function GP:registerResourceContainer(category, partName, config)
     local pickRate = unitsPerWeek / 2
     local maxStorage = unitsPerWeek * 5
 
-    GP:log("partName", partName, "partProduces", partProduces, "unitsPerWeek",
-           unitsPerWeek)
+    -- GP:alert(partName, "produces", unitsPerWeek, partProduces)
 
     local finalRegistration = {
         DataType = GP:datatypes().resource.container,

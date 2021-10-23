@@ -26,6 +26,9 @@ function GP:registerMonumentList()
     -- Map over categories, registering each part type enum.
     GP:map(config.categories, GP.registerBuildingPartType)
 
+    -- Map over categories, registering any resource containers.
+    -- GP:map(config.categories, GP.registerPrefabContainers, config)
+
     -- Map over categories, registering each part.
     GP:map(config.categories, GP.registerCategoryBuildingParts, config)
     
