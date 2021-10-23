@@ -7,8 +7,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("parts.lua")
-
 -- 1ST CLASS FUNCTION Register Category Buildings
 -- Register all the building parts in a single category in a model file.
 -- FUNCTIONAL, GAME EFFECT CALL
@@ -53,7 +51,7 @@ function GP.registerBuildingPart(category, partName, config)
     end
     local buildingFunction = partConfig.Function
 
-    GP.mod:register({
+    GP.mod:registerAsset({
         DataType = GP:datatypes().building.part,
         Id = partId,
         AssetBuildingFunction = buildingFunction,

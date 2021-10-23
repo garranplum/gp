@@ -12,16 +12,30 @@ local version = "3.3.0"
 -- FUNCTION: Version
 -- Return GPS version number inside GP functions.
 -- CLOSURE
-function GP:version() return version end
+function GP:gpsVersion() return version end
+
+
+-- GP FOUNDATION FUNCTION Log
+-- Writes a concatenated series of messages to the `foundation.log` file.
+-- GAME EFFECT
+function GP:log(...)
+    local messages = {...}
+    local logMessage = ""
+    for index, message in pairs(messages) do
+        logMessage = logMessage .. " " .. tostring(message)
+    end
+    GP.mod:log("GP |" .. logMessage)
+end
 
 -- LOGGING: GPS Running
-GP.mod:log("GPS " .. GP:version() .. " by Garran Plum")
-GP.mod:log("GP | " .. "https://mod.io/members/garranplum")
-
+GP:log("GPS", GP:gpsVersion(), "by Garran Plum", "https://mod.io/members/garranplum")
 
 -- EXECUTE FILE: Global Foundation Functions
 -- Defines Foundation-specific functions used by all GP mods.
 GP.mod:dofile("gp/foundation.lua", GP)
+
+-- LOGGING: Environment Versions
+GP:log("Foundation", GP:gameVersion(), GP:luaVersion())
 
 -- EXECUTE FILE: Global I/O Functions
 -- Defines Foundation-specific I/O functions used by all GP mods.
@@ -102,6 +116,8 @@ end
 -- IMPERATIVE: Load Config
 GP:config();
 
+-- LOGGING: GPS Configured
+GP:log("Configured", GP:config().modName, GP:modVersion())
 
 -- EXECUTE FILE: Global Datatype Declarations & Functions
 -- Defines functions that return string literals for Foundation datatypes.
@@ -162,4 +178,4 @@ local overridesPath = GP:magicWords().overrides.folder .. "/" ..
 if GP.mod:fileExists(overridesPath) then GP:load(overridesPath) end
 
 -- CALL: Log Finished Loading
-GP:log("Finished loading", GP:config().modName)
+GP:log("Loaded", GP:config().modName)

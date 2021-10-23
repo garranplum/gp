@@ -7,9 +7,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("io.lua")
-
-
 -- GP FOUNDATION FUNCTION Write
 -- Writes a string to a file. Default = "GP.log".
 -- I/O EFFECT

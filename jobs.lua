@@ -5,8 +5,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("jobs.lua")
-
 -- FUNCTION Register All Jobs
 -- FUNCTIONAL, GAME EFFECT CALL
 function GP:registerAllJobs()
@@ -29,7 +27,7 @@ end
 -- FUNCTIONAL, GAME EFFECT
 function GP:registerJob(jobName, jobConfig)
 
-    myMod:register({
+    myMod:registerAsset({
         DataType = GP:datatypes().job.registrationType,
         Id = jobName,
         JobName = jobName,

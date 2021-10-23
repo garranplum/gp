@@ -7,8 +7,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("magic.lua")
-
 local magicWords = {
     building = {idPrefix = "BUILDING_", descSuffix = "_DESC", icon = "GP_ICON"},
     part = {
@@ -26,6 +24,7 @@ local magicWords = {
     log = {folder = "logs"},
     overrides = {folder = "settings"},
     config = {folder = "settings"},
+    mod = {id = "f3db0f23-5750-4bc9-9abb-f84931d42fdb"},
 }
 
 -- GP FUNCTION Magic Words

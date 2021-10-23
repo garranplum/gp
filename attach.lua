@@ -7,8 +7,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("attach.lua")
-
 -- GP FUNCTION Register Attach Node Types
 -- Register all the attach node types in config.nodeTypes
 -- FUNCTIONAL, GAME EFFECT CALL

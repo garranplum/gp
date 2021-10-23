@@ -7,25 +7,28 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-myMod:log("GP | " .. "foundation.lua ")
-
 -- GP FOUNDATION FUNCTION Load
 -- Loads and executes a Lua file from disk.
--- UKNOWN EFFECTS (FILE LOAD & EXECUTE)
+-- UNKNOWN EFFECTS (FILE LOAD & EXECUTE)
 function GP:load(fileName)
     myMod:dofile(fileName, GP)
 end
 
--- GP FOUNDATION FUNCTION Log
--- Writes a concatenated series of messages to the `foundation.log` file.
--- GAME EFFECT
-function GP:log(...)
-    local messages = {...}
-    local logMessage = ""
-    for index, message in pairs(messages) do
-        logMessage = logMessage .. " " .. tostring(message)
-    end
-    myMod:log("GP |" .. logMessage)
+-- GP FOUNDATION FUNCTION Mod Version
+-- Gets the mod's version number.
+function GP:modVersion()
+    return foundation.getModVersion(GP:magicWords().mod.id)
+end
+
+-- GP FOUNDATION FUNCTION Game Version
+-- Gets the Foundation version number.
+function GP:gameVersion()
+    return foundation.getGameVersion()
+end
+
+-- GP FUNCTION Lua Version
+function GP:luaVersion()
+    return _VERSION
 end
 
 -- GP FOUNDATION FUNCTION Alert
@@ -57,7 +60,7 @@ function GP:register(registrationTable)
     local regId = registrationTable.Id
 
     -- Create a filename.
-    local regFile = regId .. ".log"
+    local regFile = regId or "unknown-reg" .. ".log"
 
     -- Log it.
     GP:writeTable(registrationTable, regFile)
@@ -70,7 +73,7 @@ end
 -- GP FOUNDATION FUNCTION Register Asset
 -- Log and register an asset from a file path.
 -- GAME EFFECT
-function GP:registerAsset(path, regId, assetType)
+function GP:registerAssetId(path, regId, assetType)
 
     -- Do the registration.
     myMod:registerAssetId(path, regId, assetType)
