@@ -32,7 +32,7 @@ end
 -- Register a single prefab in a model file.
 -- FUNCTIONAL, GAME EFFECT CALL
 function GP:registerPrefab(modelFileName, partName)
-    GP:registerAsset(GP:prefabPath(modelFileName, partName),
+    GP:registerAssetId(GP:prefabPath(modelFileName, partName),
                      GP:prefabId(partName),
                      GP:datatypes().prefab.registrationType)
 end

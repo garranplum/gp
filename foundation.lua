@@ -57,7 +57,7 @@ function GP:register(registrationTable)
     local regId = registrationTable.Id
 
     -- Create a filename.
-    local regFile = regId .. ".log"
+    local regFile = regId or "unknown-reg" .. ".log"
 
     -- Log it.
     GP:writeTable(registrationTable, regFile)
@@ -70,7 +70,7 @@ end
 -- GP FOUNDATION FUNCTION Register Asset
 -- Log and register an asset from a file path.
 -- GAME EFFECT
-function GP:registerAsset(path, regId, assetType)
+function GP:registerAssetId(path, regId, assetType)
 
     -- Do the registration.
     myMod:registerAssetId(path, regId, assetType)

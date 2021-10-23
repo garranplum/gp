@@ -29,7 +29,7 @@ end
 -- FUNCTIONAL, GAME EFFECT
 function GP:registerJob(jobName, jobConfig)
 
-    myMod:register({
+    myMod:registerAsset({
         DataType = GP:datatypes().job.registrationType,
         Id = jobName,
         JobName = jobName,
