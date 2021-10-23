@@ -7,8 +7,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("datatypes.lua")
-
 local datatypes = {
     building = {
         registrationType = "BUILDING",

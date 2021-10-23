@@ -5,8 +5,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("overrides.lua")
-
 -- FUNCTION Override
 -- Applies free and moveable overrides to a single part.
 -- FUNCTIONAL, GAME EFFECT

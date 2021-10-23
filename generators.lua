@@ -5,8 +5,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("generators.lua")
-
 -- CLASS Building Resource Generator
 local BUILDING_RESOURCE_GENERATOR = {
     TypeName =  GP:datatypes().building.generator,

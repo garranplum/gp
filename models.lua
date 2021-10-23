@@ -7,8 +7,6 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
-GP:log("models.lua")
-
 -- GP FUNCTION Register Model Files
 -- Register all model files in config.models.
 -- FUNCTIONAL, GAME EFFECT CALL
