@@ -136,5 +136,6 @@ function GP.registerBuilding(buildingName, config)
         BuildingType = buildingConfig.Type,
         AssetBuildingFunction = buildingConfig.Function,
         AssetCoreBuildingPart = GP:partId(buildingConfig),
+        IsEditable = true,
     })
 end

@@ -52,6 +52,8 @@ end
 -- FUNCTIONAL, GAME EFFECT
 function GP.registerResourceContainer(partName, config)
 
+    GP:alert("in reg res con", partName)
+
     -- Sugar for partConfig
     local partConfig = config.categories[category][partName]
 
@@ -65,7 +67,7 @@ function GP.registerResourceContainer(partName, config)
     local pickRate = unitsPerWeek / 2
     local maxStorage = unitsPerWeek * 5
 
-    -- GP:alert(partName, "produces", unitsPerWeek, partProduces)
+    GP:alert(partName, "produces", unitsPerWeek, partProduces)
 
     local finalRegistration = {
         DataType = GP:datatypes().resource.container,
