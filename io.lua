@@ -43,3 +43,16 @@ function GP:writeTable(incomingTable, fileName)
 end
 
 
+-- GP FOUNDATION FUNCTION Clear Path
+-- Clears a path to file writing by creating all nested folders.
+-- I/O EFFECT
+function GP:clearPath(filePath)
+
+    -- Separate the folder names and file name.
+    local folderArray, fileName = GP:filePath(filePath)
+
+    -- For all folder names...
+    for folderName in folderArray do
+
+    end
+end
