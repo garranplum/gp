@@ -51,7 +51,7 @@ function GP.registerBuildingPart(category, partName, config)
     end
     local buildingFunction = partConfig.Function
 
-    GP.mod:registerAsset({
+    local finalRegistration = {
         DataType = GP:datatypes().building.part,
         Id = partId,
         AssetBuildingFunction = buildingFunction,
@@ -75,6 +75,8 @@ function GP.registerBuildingPart(category, partName, config)
                 }
             }
         }
-    })
+    }
+
+    GP.mod:registerAsset(finalRegistration)
 
 end
