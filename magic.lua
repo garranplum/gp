@@ -21,7 +21,7 @@ local magicWords = {
     category = {namePrefix = "CATEGORY_"},
     generator = {idSuffix = "_GENERATOR", functionIdSuffix = "_GENERATOR_BASE"},
     job = {descSuffix = "_DESC"},
-    log = {folder = "logs", gps = "GPS", class = "CLASS"},
+    log = {folder = "logs", gps = "GPS", class = "CLASS", asset = "ASSET"},
     overrides = {folder = "settings"},
     config = {folder = "settings"},
     mod = {id = "f3db0f23-5750-4bc9-9abb-f84931d42fdb"},
