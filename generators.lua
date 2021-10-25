@@ -42,7 +42,7 @@ function BUILDING_RESOURCE_GENERATOR:reloadBuildingFunction(gameObject)
 end
 
 -- REGISTER Class
-myMod:registerClass(BUILDING_RESOURCE_GENERATOR)
+GP:registerClass(BUILDING_RESOURCE_GENERATOR)
 
 function GP:registerGenerator(generatorConfig)
     

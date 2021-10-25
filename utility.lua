@@ -170,6 +170,11 @@ function GP:serializeTable(incomingTable, tableString, indent)
             indent = indent - 1
         end
 
+        -- If the itemValue is a function, replace it with a magic word.
+        if GP:isFunction(itemValue) then
+            stringValue = GP:magicWords().serialize.func
+        end
+
         -- Format the string key and value in Lua form: [Category = "PLUM",]
         local itemString = stringKey .. stringValue .. [[, ]]
 
@@ -217,8 +222,13 @@ function GP:isBoolean(object) return type(object) == "boolean" end
 -- PURE FUNCTIONAL
 function GP:isTable(object) return type(object) == "table" end
 
+-- GP UTILITY FUNCTION isFunction
+-- Returns true if passed a function.
+-- PURE FUNCTIONAL
+function GP:isFunction(object) return type(object) == "function" end
+
 -- GP UTILITY FUNCTION File Path
--- Returns an array of folders and a filename from a path and filename string.
+-- Returns a folder path string, file name, and folder array from a file path string.
 -- PURE FUNCTIONAL
 function GP:filePath(incomingString)
 
@@ -243,7 +253,16 @@ function GP:filePath(incomingString)
     -- Remove the fileName from the folder list.
     table.remove(folderArray)
 
-    -- Return the folder list and file name.
-    return folderArray, fileName
+    -- Setup for path string.
+    local filePath = ""
+
+    -- Reconstruct the folder list as a string.
+    for index, folderName in ipairs(folderArray) do
+        filePath = filePath .. "/" .. folderName
+    end
+
+    -- Return the path string, file name, and folder array.
+    return filePath, fileName, folderArray
 
 end
+

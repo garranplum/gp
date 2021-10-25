@@ -21,6 +21,9 @@ function GP:write(fileContent, fileName)
     -- Setup file path.
     local filePath = GP:magicWords().log.folder .. '/' .. fileName
 
+    -- Clear a path to writing by ensuring folders exist.
+    GP:clearPath(filePath)
+
     -- Call the Foundation function to write the file and grab the return boolean.
     isWriteSuccessful = myMod:writeFileAsString(filePath, fileContent)
 
@@ -33,10 +36,12 @@ function GP:writeTable(incomingTable, fileName)
 
     -- Set a default fileName if one isn't provided.
     -- Uses GP.loaded instead of GP:config() to preclude looping if config() calls writeTable().
-    fileName = fileName or GP.loaded.modName .. ".log"
+    fileName = (fileName or GP.loaded.modName) .. ".log"
 
-     -- Setup file path.
-     local filePath = GP:magicWords().log.folder .. '/' .. fileName
+    -- Registration w/ DataType? Add a folder for it.
+    if incomingTable.DataType then
+        fileName = incomingTable.DataType .. "/" .. fileName 
+    end
 
     -- Write the table serialized as a string.
     GP:write(GP:serializeTable(incomingTable), fileName)
@@ -46,13 +51,13 @@ end
 -- GP FOUNDATION FUNCTION Clear Path
 -- Clears a path to file writing by creating all nested folders.
 -- I/O EFFECT
-function GP:clearPath(filePath)
+function GP:clearPath(incomingString)
 
-    -- Separate the folder names and file name.
-    local folderArray, fileName = GP:filePath(filePath)
+    -- Separate the file path and file name.
+    local filePath, fileName = GP:filePath(incomingString)
 
-    -- For all folder names...
-    for folderName in folderArray do
-
+    -- If path doesn't exist, create it.
+    if not myMod:directoryExists(filePath) then
+        myMod:createDirectory(filePath)
     end
 end

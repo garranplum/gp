@@ -60,13 +60,35 @@ function GP:register(registrationTable)
     local regId = registrationTable.Id
 
     -- Create a filename.
-    local regFile = regId or "unknown-reg" .. ".log"
+    local regFile = regId or "unknown-reg"
 
     -- Log it.
     GP:writeTable(registrationTable, regFile)
 
     -- Do the registration.
     myMod:registerAsset(registrationTable)
+
+end
+
+-- GP FOUNDATION FUNCTION Register Class
+-- Log and call a custom class registration.
+-- GAME EFFECT
+function GP:registerClass(registrationTable)
+
+    -- Extract the new TypeName being registered.
+    local regId = registrationTable.TypeName
+
+    -- Create a filename.
+    local regFile = regId or "unknown-class"
+
+    -- Log into CLASS folder.
+    regFile = GP:magicWords().log.class .. "/" .. regFile
+
+    -- Log it.
+    GP:writeTable(registrationTable, regFile)
+
+    -- Do the registration.
+    myMod:registerClass(registrationTable)
 
 end
 

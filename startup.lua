@@ -13,7 +13,7 @@ function GP:startMod()
     -- Sugar for GP:config()
     local config = GP:config()
 
-    GP:writeTable(config)
+    GP:writeTable(config, GP:magicWords().log.gps .. "/" .. GP:config().modName)
 
     -- STARTUP Register Model Files
     GP:registerModelFiles()
