@@ -108,7 +108,7 @@ function GP:registerAssetId(path, regId, assetType)
 end
 
 -- GP FOUNDATION FUNCTION Register Prefab Component
--- Log and register an prefab component from a file path.
+-- Log and register a prefab component's properties (like worker paths) from a file path.
 -- GAME EFFECT
 function GP:registerPrefabComponent(path, regId, registrationTable)
 
