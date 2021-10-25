@@ -38,7 +38,9 @@ function GP:registerJob(jobName, jobConfig)
         CharacterSetup = {
             DataType = GP:datatypes().job.character,
             WalkAnimation = jobConfig.Walk,
-            IdleAnimation = jobConfig.Work
+            IdleAnimation = jobConfig.Work,
+            MaleBackList = {jobConfig.Back},
+            FemaleBackList = {jobConfig.Back},
 
         }
     })

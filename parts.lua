@@ -20,7 +20,7 @@ function GP.registerCategoryBuildingParts(category, config)
         if (not partConfig.BuildingRegistered) then
             GP.registerBuildingPart(category, partName, config)
         else
-            GP:override(partName)
+            GP.override(partName)
         end
     end
 end

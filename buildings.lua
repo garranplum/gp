@@ -18,7 +18,7 @@ function GP:registerMonumentList()
     -- Map over the monument list, registering each monument.
     GP:map(config.monuments, GP.registerMonument, config)
 
-    -- Map over building listing, registering each building.
+    -- Map over single buildings, registering each building.
     GP:map(config.buildings, GP.registerBuilding, config)
 
     -- Map over categories, registering each part type enum.

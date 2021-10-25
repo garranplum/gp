@@ -5,23 +5,21 @@
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
--- FUNCTION Override
+-- 1st CLASS FUNCTION Override
 -- Applies free and moveable overrides to a single part.
 -- FUNCTIONAL, GAME EFFECT
-function GP:override(partId)
+function GP.override(partId)
+
+    GP:alert("overriding", partId)
 
     -- Override the part's resource requirements
     myMod:overrideAsset({
         Id = partId,
-       Cost = {
-            BuildRightTaxes = {},
-            UpkeepCost = {},
-            ResourceNeededList = {}
-        },
+        Cost = {BuildRightTaxes = {}, UpkeepCost = {}, ResourceNeededList = {}},
         IsMovableWhenBuilt = true,
         IsOnlyAttached = false,
         HasMaximumInstancePerBuilding = false,
-        CraftedResourceNeeded = nil,
+        CraftedResourceNeeded = nil
     })
 
     -- No returns. Function is called only for side effects.
