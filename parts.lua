@@ -77,6 +77,6 @@ function GP.registerBuildingPart(category, partName, config)
         }
     }
 
-    GP.mod:registerAsset(finalRegistration)
+    GP:register(finalRegistration)
 
 end
