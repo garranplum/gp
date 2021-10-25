@@ -4,7 +4,6 @@
 -- Functions that register paths.
 -- 
 -- FUNCTION ASSIGNMENTS
-
 -- IMPORT GP OBJECT
 local myMod, GP = ...
 
@@ -36,7 +35,9 @@ end
 -- PURE FUNCTIONAL
 function GP:registerPathNodes(modelFileName, partName, pathNodes)
     for index, pathKey in ipairs(pathNodes) do
-        local pathName = GP:magicWords().path.namePrefix .. GP:fbxName(partName) .. "_" .. pathKey
+        local pathName =
+            GP:magicWords().path.namePrefix .. GP:fbxName(partName) .. "_" ..
+                pathKey
         local pathId = string.upper(pathName)
         local pathPath = GP:prefabPath(modelFileName, partName) .. pathName
         myMod:registerAssetId(pathPath, pathId)
@@ -52,8 +53,9 @@ function GP:registerPathTypes(modelFileName, partName, pathTypes)
     local pathNodeList = {}
 
     for typeName, nodeName in pairs(pathTypes) do
-        local pathName = GP:magicWords().path.namePrefix .. GP:fbxName(partName) .. "_" ..
-                             nodeName
+        local pathName =
+            GP:magicWords().path.namePrefix .. GP:fbxName(partName) .. "_" ..
+                nodeName
         local pathId = string.upper(pathName)
         local onePathNode = {
             PathType = BUILDING_PATH_TYPE[typeName],
@@ -62,7 +64,8 @@ function GP:registerPathTypes(modelFileName, partName, pathTypes)
         table.insert(pathNodeList, onePathNode)
     end
 
-    myMod:registerPrefabComponent(GP:prefabPath(modelFileName, partName), {
+    GP:registerPrefabComponent(GP:prefabPath(modelFileName, partName), partName,
+                               {
         DataType = GP:datatypes().part.registrationType,
         PathList = pathNodeList
     })

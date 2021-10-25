@@ -105,5 +105,19 @@ function GP:registerAssetId(path, regId, assetType)
 
     -- Do the registration.
     myMod:registerAssetId(path, regId, assetType)
+end
 
+-- GP FOUNDATION FUNCTION Register Prefab Component
+-- Log and register an prefab component from a file path.
+-- GAME EFFECT
+function GP:registerPrefabComponent(path, regId, registrationTable)
+
+    -- Create a filename.
+    local regFile = regId or "unknown-prefab"
+
+     -- Log it.
+    GP:writeTable(registrationTable, regFile)
+
+    -- Do the registration.
+    myMod:registerPrefabComponent(path, registrationTable)
 end
