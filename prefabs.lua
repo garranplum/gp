@@ -31,8 +31,8 @@ end
 -- FUNCTIONAL, GAME EFFECT CALL
 function GP:registerPrefab(modelFileName, partName)
     GP:registerAssetId(GP:prefabPath(modelFileName, partName),
-                     GP:prefabId(partName),
-                     GP:datatypes().prefab.registrationType)
+                       GP:prefabId(partName),
+                       GP:datatypes().prefab.registrationType)
 end
 
 -- 1st CLASS FUNCTION Register Prefab Containers
@@ -51,8 +51,6 @@ end
 -- Register a single prefab as a resource container.
 -- FUNCTIONAL, GAME EFFECT
 function GP.registerResourceContainer(partName, config)
-
-    GP:alert("in reg res con", partName)
 
     -- Sugar for partConfig
     local partConfig = config.categories[category][partName]
