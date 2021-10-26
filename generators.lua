@@ -7,22 +7,15 @@ local myMod, GP = ...
 
 -- CLASS Building Resource Generator
 local BUILDING_RESOURCE_GENERATOR = {
-    TypeName =  GP:datatypes().building.generator,
+    TypeName = GP:datatypes().building.generator,
     ParentType = "BUILDING_FUNCTION",
     Properties = {
         {
             Name = "ResourceGenerator",
             Type = GP:datatypes().building.generatorFunction,
             Default = "BUILDING_FUNCTION_WELL"
-        }, 
-        {
-            Name = "MaxQuantity", 
-            Type = "integer", 
-            Default = 50},
-        {
-            Name = "GrowRate", 
-            Type = "float", 
-            Default = 1.0}
+        }, {Name = "MaxQuantity", Type = "integer", Default = 50},
+        {Name = "GrowRate", Type = "float", Default = 1.0}
     }
 }
 
@@ -45,7 +38,7 @@ end
 GP:registerClass(BUILDING_RESOURCE_GENERATOR)
 
 function GP:registerGenerator(generatorConfig)
-    
+
     for resource, maxQty in pairs(generatorConfig.Produces) do
 
         -- BUILDING FUNCTION RESOURCE GENERATOR (Parent) Properties

@@ -40,13 +40,16 @@ function GP:writeTable(incomingTable, fileName)
 
     -- Registration w/ DataType? Add a folder for it.
     if incomingTable.DataType then
-        fileName = incomingTable.DataType .. "/" .. fileName 
+        fileName = incomingTable.DataType .. "/" .. fileName
     end
 
-    -- Write the table serialized as a string.
-    GP:write(GP:serializeTable(incomingTable), fileName)
-end
+    -- Add a local var declaration to make the log valid Lua.
+    local logVar = incomingTable.Id or "gpsLog"
+    local varDeclaration = "local" .. " " .. logVar .. " = " .. "\n"
 
+    -- Write the table serialized as a string with the log variable declaration.
+    GP:write(varDeclaration .. GP:serializeTable(incomingTable), fileName)
+end
 
 -- GP FOUNDATION FUNCTION Clear Path
 -- Clears a path to file writing by creating all nested folders.

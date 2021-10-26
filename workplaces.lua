@@ -32,15 +32,25 @@ end
 function GP:registerWorkplace(workplaceName, workplaceConfig)
 
     local resourceProducedList = {}
-    for oneResource, qty in pairs(workplaceConfig.Produces) do
-        local resourceProducedItem = {Resource = oneResource, Quantity = qty}
-        table.insert(resourceProducedList, resourceProducedItem)
+    if workplaceConfig.Produces then
+        for oneResource, qty in pairs(workplaceConfig.Produces) do
+            local resourceProducedItem = {
+                Resource = oneResource,
+                Quantity = qty
+            }
+            table.insert(resourceProducedList, resourceProducedItem)
+        end
     end
 
     local resourceRequiredList = {}
-    for oneResource, qty in pairs(workplaceConfig.Requires) do
-        local resourceRequiredItem = {Resource = oneResource, Quantity = qty}
-        table.insert(resourceRequiredList, resourceRequiredItem)
+    if workplaceConfig.Requires then
+        for oneResource, qty in pairs(workplaceConfig.Requires) do
+            local resourceRequiredItem = {
+                Resource = oneResource,
+                Quantity = qty
+            }
+            table.insert(resourceRequiredList, resourceRequiredItem)
+        end
     end
 
     local finalRegistration = {
