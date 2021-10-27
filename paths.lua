@@ -52,16 +52,22 @@ function GP:registerPathTypes(modelFileName, partName, pathTypes)
 
     local pathNodeList = {}
 
-    for typeName, nodeName in pairs(pathTypes) do
-        local pathName =
-            GP:magicWords().path.namePrefix .. GP:fbxName(partName) .. "_" ..
-                nodeName
-        local pathId = string.upper(pathName)
-        local onePathNode = {
-            PathType = BUILDING_PATH_TYPE[typeName],
-            WayPointList = {pathId}
-        }
-        table.insert(pathNodeList, onePathNode)
+    for typeName, nodeNameList in pairs(pathTypes) do
+
+        -- Convert single argument to array of one.
+        if GP:isString(nodeNameList) then nodeNameList = {nodeNameList} end
+
+        for index, nodeName in ipairs(nodeNameList) do
+
+            local pathName = GP:magicWords().path.namePrefix ..
+                                 GP:fbxName(partName) .. "_" .. nodeName
+            local pathId = string.upper(pathName)
+            local onePathNode = {
+                PathType = BUILDING_PATH_TYPE[typeName],
+                WayPointList = {pathId}
+            }
+            table.insert(pathNodeList, onePathNode)
+        end
     end
 
     GP:registerPrefabComponent(GP:prefabPath(modelFileName, partName), partName,
