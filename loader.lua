@@ -93,8 +93,11 @@ function GP:config()
     -- If more than one category or part, create a monument.
     if categoryCount > 1 or partsCount > 1 then
         if not next(config.monuments) then
-            config.monuments[modName] = config.monuments[modName] or
-                                            {Categories = {}}
+            config.monuments[modName] = config.monuments[modName] or {
+                Categories = {},
+                Logo = config.logo or
+                    config.categories[firstCategoryKey][firstPart]
+            }
         end
     end
 

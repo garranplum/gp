@@ -115,7 +115,8 @@ function GP.registerMonument(buildingName, config)
         BuildingType = buildingConfig.Type,
         AssetCoreBuildingPart = GP:ids().monumentPole,
         BuildingPartSetList = buildingPartsList,
-        RequiredPartList = requiredPartsList
+        RequiredPartList = requiredPartsList,
+        AssetMiniatureBuildingPart = buildingConfig.Logo
 
     })
 end
