@@ -19,15 +19,13 @@ function GP:registerAllJobs()
         GP:registerJob(jobName, jobConfig)
     end
 
-
-
 end
 
 -- FUNCTION Register Job
 -- FUNCTIONAL, GAME EFFECT
 function GP:registerJob(jobName, jobConfig)
 
-    myMod:registerAsset({
+    local registrationTable = {
         DataType = GP:datatypes().job.registrationType,
         Id = jobName,
         JobName = jobName,
@@ -40,10 +38,12 @@ function GP:registerJob(jobName, jobConfig)
             WalkAnimation = jobConfig.Walk,
             IdleAnimation = jobConfig.Work,
             MaleBackList = {jobConfig.Back},
-            FemaleBackList = {jobConfig.Back},
+            FemaleBackList = {jobConfig.Back}
 
         }
-    })
+    }
+
+    GP:register(registrationTable)
 
     -- Job Allowed for Newcomers
     myMod:overrideAsset({

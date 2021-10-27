@@ -13,7 +13,7 @@ local magicWords = {
         separator = "_Part",
         idPrefix = "BUILDING_PART_",
         descSuffix = "_DESC",
-        overrides = "GP_OVERRIDE_PART_LIST",
+        overrides = "GP_OVERRIDE_PART_LIST"
     },
     prefab = {folder = "Prefab", idPrefix = "PREFAB_"},
     model = {folder = "models", extension = ".fbx"},
@@ -21,11 +21,20 @@ local magicWords = {
     category = {namePrefix = "CATEGORY_"},
     generator = {idSuffix = "_GENERATOR", functionIdSuffix = "_GENERATOR_BASE"},
     job = {descSuffix = "_DESC"},
-    log = {folder = "logs", gps = "GPS", class = "CLASS", asset = "ASSET", path = "PATH"},
-    overrides = {folder = "settings"},
+    log = {
+        folder = "logs",
+        gps = "GPS",
+        class = "CLASS",
+        asset = "ASSET",
+        path = "PATH"
+    },
+    overrides = {folder = "settings", name = "overrides"},
     config = {folder = "settings"},
     mod = {id = "f3db0f23-5750-4bc9-9abb-f84931d42fdb"},
-    serialize = {func = [["]] .. "f()" .. [["]]}
+    serialize = {
+        func = [["]] .. "f()" .. [["]],
+        userdata = [["]] .. "u[]" .. [["]]
+    }
 }
 
 -- GP FUNCTION Magic Words

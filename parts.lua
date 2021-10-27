@@ -12,8 +12,8 @@ local myMod, GP = ...
 -- FUNCTIONAL, GAME EFFECT CALL
 function GP.registerCategoryBuildingParts(category, config)
 
-      -- Sugar for categoryParts
-      local categoryParts = config.categories[category]
+    -- Sugar for categoryParts
+    local categoryParts = config.categories[category]
 
     for partName, partConfig in pairs(categoryParts) do
 
@@ -24,10 +24,6 @@ function GP.registerCategoryBuildingParts(category, config)
         end
     end
 end
-
-
-
-
 
 -- 1ST CLASS FUNCTION Register Building Part Type
 -- Register a single building part type enum value.
@@ -41,14 +37,12 @@ end
 -- FUNCTIONAL, GAME EFFECT
 function GP.registerBuildingPart(category, partName, config)
 
-      -- Sugar for partConfig
-      local partConfig = config.categories[category][partName]
+    -- Sugar for partConfig
+    local partConfig = config.categories[category][partName]
 
     local partId = GP:partId(partName)
     local prefabId = partName
-    if not partConfig.AssetRegistered then 
-        prefabId = GP:prefabId(partName) 
-    end
+    if not partConfig.AssetRegistered then prefabId = GP:prefabId(partName) end
     local buildingFunction = partConfig.Function
 
     local finalRegistration = {

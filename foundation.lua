@@ -20,6 +20,12 @@ function GP:modVersion() return foundation.getModVersion(GP:magicWords().mod.id)
 -- Gets the Foundation version number.
 function GP:gameVersion() return foundation.getGameVersion() end
 
+-- GP FOUNDATION FUNCTION Game Minimum Version
+-- Returns true if the game is at least the supplied version.
+function GP:gameMinimumVersion(minVersion)
+    return version.cmp(GP:gameVersion(), minVersion) >= 0
+end
+
 -- GP FUNCTION Lua Version
 function GP:luaVersion() return _VERSION end
 

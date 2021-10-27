@@ -175,6 +175,11 @@ function GP:serializeTable(incomingTable, tableString, indent)
             stringValue = GP:magicWords().serialize.func
         end
 
+        -- If the itemValue is userdate, replace it with a magic word.
+        if GP:isUserdata(itemValue) then
+            stringValue = GP:magicWords().serialize.userdata
+        end
+
         -- Format the string key and value in Lua form: [Category = "PLUM",]
         local itemString = stringKey .. stringValue .. [[, ]]
 
@@ -227,6 +232,11 @@ function GP:isTable(object) return type(object) == "table" end
 -- PURE FUNCTIONAL
 function GP:isFunction(object) return type(object) == "function" end
 
+-- GP UTILITY FUNCTION isUserdata
+-- Returns true if passed userdata.
+-- PURE FUNCTIONAL
+function GP:isUserdata(object) return type(object) == "userdata" end
+
 -- GP UTILITY FUNCTION File Path
 -- Returns a folder path string, file name, and folder array from a file path string.
 -- PURE FUNCTIONAL
@@ -249,7 +259,7 @@ function GP:filePath(incomingString)
         table.insert(folderArray, folderName)
         fileName = folderName
     end
-    
+
     -- Remove the fileName from the folder list.
     table.remove(folderArray)
 
