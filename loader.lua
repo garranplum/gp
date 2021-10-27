@@ -14,7 +14,6 @@ local version = "3.3.0"
 -- CLOSURE
 function GP:gpsVersion() return version end
 
-
 -- GP FOUNDATION FUNCTION Log
 -- Writes a concatenated series of messages to the `foundation.log` file.
 -- GAME EFFECT
@@ -28,7 +27,8 @@ function GP:log(...)
 end
 
 -- LOGGING: GPS Running
-GP:log("GPS", GP:gpsVersion(), "by Garran Plum", "https://mod.io/members/garranplum")
+GP:log("GPS", GP:gpsVersion(), "by Garran Plum",
+       "https://mod.io/members/garranplum")
 
 -- EXECUTE FILE: Global Foundation Functions
 -- Defines Foundation-specific functions used by all GP mods.
@@ -64,23 +64,6 @@ function GP:config()
 
     -- Create default building or monument.
 
-    -- Determine number of categories and parts in remix.
-    local categoryCount = #config.categories
-    local firstCategoryKey = next(config.categories)
-    local partsCount = #config.categories[firstCategoryKey]
-    local firstPart = config.categories[firstCategoryKey]
-
-    -- If more than one part or category, create a default monument.
-    if categoryCount > 1 or partsCount > 1 then
-        config.monuments[modName] = config.monuments[modName] or
-                                        {Categories = {}}
-    end
-
-    -- If only one part and category, create a default building.
-    if categoryCount == 1 and partsCount == 1 then
-        config.buildings[modName] = config.buildings[modName] or firstPart .. [[ = ]] .. config.categories[firstCategoryKey][firstPart]
-    end
-
     -- Remix each category on the list.
     for category, partsList in pairs(config.remix) do
 
@@ -101,12 +84,36 @@ function GP:config()
             config.categories[category][partId] = partEntry
 
         end
+    end
 
-        -- Add the category to the monument if not already in config.
-        if not (config.monuments[modName].Categories[category]) then
-            config.monuments[modName].Categories[category] = {}
+    -- Determine number of categories and parts in remix.
+    local categoryCount = GP:tableLength(config.categories)
+    local firstCategoryKey = next(config.categories)
+    local partsCount = GP:tableLength(config.categories[firstCategoryKey])
+    local firstPart = config.categories[firstCategoryKey]
+
+    -- If more than one category or part, create a monument.
+    if categoryCount > 1 or partsCount > 1 then
+        config.monuments[modName] = config.monuments[modName] or
+                                        {Categories = {}}
+    end
+
+    -- If only one part and category, create a default building.
+    if categoryCount == 1 and partsCount == 1 then
+        config.buildings[modName] = config.buildings[modName] or firstPart ..
+                                        [[ = ]] ..
+                                        config.categories[firstCategoryKey][firstPart]
+    end
+
+    -- Add parts to building or monument for each category on the list.
+    for category, partsList in pairs(config.remix) do
+        -- Using a monument?
+        if config.monuments[modName] then
+            -- Add the category to the monument if not already in config.
+            if not (config.monuments[modName].Categories[category]) then
+                config.monuments[modName].Categories[category] = {}
+            end
         end
-
     end
 
     -- Return canonized copy.

@@ -115,7 +115,7 @@ function GP:registerPrefabComponent(path, regId, registrationTable)
     -- Create a filename.
     local regFile = regId or "unknown-prefab"
 
-     -- Log it.
+    -- Log it.
     GP:writeTable(registrationTable, regFile)
 
     -- Do the registration.

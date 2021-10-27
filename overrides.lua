@@ -10,8 +10,6 @@ local myMod, GP = ...
 -- FUNCTIONAL, GAME EFFECT
 function GP.override(partId)
 
-    -- GP:alert("overriding", partId)
-
     -- Override the part's resource requirements
     myMod:overrideAsset({
         Id = partId,
