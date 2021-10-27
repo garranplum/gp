@@ -16,8 +16,7 @@ function GP.override(partId)
         Cost = {BuildRightTaxes = {}, UpkeepCost = {}, ResourceNeededList = {}},
         IsMovableWhenBuilt = true,
         IsOnlyAttached = false,
-        HasMaximumInstancePerBuilding = false,
-        CraftedResourceNeeded = nil
+        HasMaximumInstancePerBuilding = false
     })
 
     -- No returns. Function is called only for side effects.

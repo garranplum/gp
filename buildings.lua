@@ -29,7 +29,7 @@ function GP:registerMonumentList()
 
     -- Map over categories, registering each part.
     GP:map(config.categories, GP.registerCategoryBuildingParts, config)
-    
+
 end
 
 -- 1ST CLASS FUNCTION Register Monument
@@ -113,29 +113,36 @@ function GP.registerMonument(buildingName, config)
         Name = buildingName,
         Description = buildingName .. GP:magicWords().building.descSuffix,
         BuildingType = buildingConfig.Type,
-        -- AssetBuildingFunction = buildingConfig.Function,
         AssetCoreBuildingPart = GP:ids().monumentPole,
         BuildingPartSetList = buildingPartsList,
         RequiredPartList = requiredPartsList
+
     })
 end
 
 -- 1ST CLASS FUNCTION Register Building
--- Register a single building with only one part.
+-- Register all buildings in a category as having only one part.
 -- FUNCTIONAL, GAME EFFECT
-function GP.registerBuilding(buildingName, config)
+function GP.registerBuilding(categoryIndex, config)
 
-    -- Sugar for buildingConfig
-    local buildingConfig = config.buildings[buildingName]
+    -- Sugar for category
+    local category = config.buildings[categoryIndex]
 
-    GP:register({
-        DataType = GP.datatypes().building.registrationType,
-        Id = GP:magicWords().building.idPrefix .. buildingName,
-        Name = buildingName,
-        Description = buildingName .. GP:magicWords().building.descSuffix,
-        BuildingType = buildingConfig.Type,
-        AssetBuildingFunction = buildingConfig.Function,
-        AssetCoreBuildingPart = GP:partId(buildingConfig),
-        IsEditable = true,
-    })
+    -- Sugar for category parts
+    local categoryParts = config.categories[category]
+
+    -- Register each part in the category as a separate building.
+    for partName, partConfig in pairs(categoryParts) do
+
+        GP:register({
+            DataType = GP.datatypes().building.registrationType,
+            Id = GP:magicWords().building.idPrefix .. partName,
+            Name = partName,
+            Description = partName .. GP:magicWords().building.descSuffix,
+            BuildingType = partConfig.Type,
+            AssetBuildingFunction = partConfig.Function,
+            AssetCoreBuildingPart = GP:partId(partName),
+            IsEditable = true
+        })
+    end
 end

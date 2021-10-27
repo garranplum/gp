@@ -62,8 +62,6 @@ function GP:config()
     -- Sugar for config.modName
     local modName = config.modName
 
-    -- Create default building or monument.
-
     -- Remix each category on the list.
     for category, partsList in pairs(config.remix) do
 
@@ -94,14 +92,15 @@ function GP:config()
 
     -- If more than one category or part, create a monument.
     if categoryCount > 1 or partsCount > 1 then
-        config.monuments[modName] = config.monuments[modName] or
-                                        {Categories = {}}
+        if not next(config.monuments) then
+            config.monuments[modName] = config.monuments[modName] or
+                                            {Categories = {}}
+        end
     end
 
     -- If only one part and category, create a default building.
     if categoryCount == 1 and partsCount == 1 then
-        config.buildings[modName] = config.buildings[modName] or firstPart ..
-                                        [[ = ]] ..
+        config.buildings[modName] = config.buildings[modName] or
                                         config.categories[firstCategoryKey][firstPart]
     end
 
