@@ -27,7 +27,5 @@ function GP:startMod()
     -- STARTUP Register Monument
     GP:registerMonumentList()
 
-    -- myGP.Universal:alert("Universal GP")
-
 end
 

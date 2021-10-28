@@ -12,9 +12,6 @@ local myMod, GP = ...
 -- HIGHER ORDER, RECURSIVE, FUNCTIONAL, UNKNOWN EFFECTS (1ST CLASS FUNCTION CALL)
 function GP:map(incomingTable, mapFunction, ...)
 
-    -- Remember array style table to process destructively.
-    local isArray = GP:isArray(incomingTable)
-
     -- Collect multiple arguments.
     local arguments = {...}
 
@@ -24,30 +21,45 @@ function GP:map(incomingTable, mapFunction, ...)
     -- If there's an item to process...
     if (item) then
 
-        -- Preserve original item for indexing arrays
-        local origItem = item
+        -- Apply the function to the item with all its arguments.
+        mapFunction(item, unpack(arguments))
 
-        -- If array style table, return the value instead of the index
-        if isArray then item = incomingTable[item] end
+        -- Recurse over a copy to prevent destroying original.
+        local copyTable = GP:copyTable(incomingTable)
+
+        -- Remove the item from the table copy.
+        copyTable[item] = nil
+
+        -- Call this function on the recurse table to process the rest of the list.
+        GP:map(copyTable, mapFunction, unpack(arguments))
+    end
+end
+
+-- GP UTILITY FUNCTION Map Array
+-- Maps each item in array style incomingTable to mapFunction, passing args.
+-- HIGHER ORDER, RECURSIVE, FUNCTIONAL, UNKNOWN EFFECTS (1ST CLASS FUNCTION CALL)
+function GP:mapArray(incomingTable, mapFunction, ...)
+
+    -- Collect multiple arguments.
+    local arguments = {...}
+
+    -- Get the next item from the table.
+    local index, item = GP:next(incomingTable)
+
+    -- If there's an item to process...
+    if (item) then
 
         -- Apply the function to the item with all its arguments.
         mapFunction(item, unpack(arguments))
 
-        -- Process the original or a copy
-        local recurseTable = incomingTable
+        -- Recurse over a copy to prevent destroying original.
+        local copyTable = GP:copyTable(incomingTable)
 
-        -- If not array style, use a copy
-        if not isArray then recurseTable = GP:copyTable(incomingTable) end
+        -- Remove the item from the table copy.
+        table.remove(copyTable, index)
 
-        -- Remove the item from the table to be recursed.
-        if isArray then
-            table.remove(recurseTable, origItem)
-        else
-            recurseTable[item] = nil
-        end
-
-        -- Call this function on the recurse table to process the rest of the list.
-        GP:map(recurseTable, mapFunction, unpack(arguments))
+        -- Call this function on the copied table to process the rest of the list.
+        GP:mapArray(copyTable, mapFunction, unpack(arguments))
     end
 end
 
@@ -55,11 +67,12 @@ end
 -- Returns the next item in a table or nil.
 -- PURE FUNCTIONAL
 function GP:next(incomingTable)
-    local nextItem = nil
+    local nextKey = nil
+    local nextValue = nil
     if (incomingTable and next(incomingTable)) then
-        nextItem = next(incomingTable)
+        nextKey, nextValue = next(incomingTable)
     end
-    return nextItem
+    return nextKey, nextValue
 end
 
 -- GP UTILITY FUNCTION Copy Table

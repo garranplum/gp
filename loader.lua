@@ -135,7 +135,7 @@ local loadList = {
 local loaderFunction =
     function(fileName) GP:load("gp/" .. fileName .. ".lua") end
 
-GP:map(loadList, loaderFunction)
+GP:mapArray(loadList, loaderFunction)
 
 -- -- EXECUTE FILE: Global Datatype Declarations & Functions
 -- -- Defines .
