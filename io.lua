@@ -35,8 +35,8 @@ end
 function GP:writeTable(incomingTable, fileName)
 
     -- Set a default fileName if one isn't provided.
-    -- Uses GP.loaded instead of GP:config() to preclude looping if config() calls writeTable().
-    fileName = (fileName or GP.loaded.modName) .. ".log"
+    -- Uses GP.load instead of GP:config() to preclude looping if config() calls writeTable().
+    fileName = (fileName or GP:load(configPath).modName) .. ".log"
 
     -- Registration w/ DataType? Add a folder for it.
     if incomingTable.DataType then

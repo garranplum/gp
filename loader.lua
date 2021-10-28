@@ -51,8 +51,7 @@ GP:load("gp/magic.lua")
 
 -- CLOSURE: Turn config file closure into config table closure.
 local configPath = GP:magicWords().config.folder .. "/" .. configFile
-GP:load(configPath)
-local config = GP.loaded
+local config = GP:load(configPath)
 
 -- GP Function Config
 -- Returns a copy of the remixed, canonized configuration.

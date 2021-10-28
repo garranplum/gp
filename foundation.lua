@@ -10,7 +10,7 @@ local myMod, GP = ...
 -- GP FOUNDATION FUNCTION Load
 -- Loads and executes a Lua file from disk.
 -- UNKNOWN EFFECTS (FILE LOAD & EXECUTE)
-function GP:load(fileName) myMod:dofile(fileName, GP) end
+function GP:load(fileName) return myMod:dofile(fileName, GP) end
 
 -- GP FOUNDATION FUNCTION Mod Version
 -- Gets the mod's version number.
