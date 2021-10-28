@@ -127,53 +127,65 @@ GP:config();
 -- LOGGING: GPS Configured
 GP:log("Configured", GP:config().modName, GP:modVersion())
 
--- EXECUTE FILE: Global Datatype Declarations & Functions
--- Defines functions that return string literals for Foundation datatypes.
-GP:load("gp/datatypes.lua")
+local loadList = {
+    "datatypes", "prefabs", "attach", "paths", "models", "parts", "buildings",
+    "jobs", "generators", "workplaces", "overrides", "startup", "dependency"
+}
 
--- EXECUTE FILE: Prefab Functions
--- Defines prefab registration functions used by all GP mods.
-GP:load("gp/prefabs.lua")
+local loaderFunction =
+    function(fileName) GP:load("gp/" .. fileName .. ".lua") end
 
--- EXECUTE FILE: Attach Functions
--- Defines attach point registration functions used by all GP mods.
-GP:load("gp/attach.lua")
+GP:map(loadList, loaderFunction)
 
--- EXECUTE FILE: Path Functions
--- Defines path registration functions used by all GP mods.
-GP:load("gp/paths.lua")
+-- -- EXECUTE FILE: Global Datatype Declarations & Functions
+-- -- Defines .
+-- GP:load("gp/datatypes.lua")
 
--- EXECUTE FILE: Model File Functions
--- Defines .fbx model file functions used by all GP mods.
-GP:load("gp/models.lua")
+-- -- EXECUTE FILE: Prefab Functions
+-- -- Defines prefab registration functions used by all GP mods.
+-- GP:load("gp/prefabs.lua")
 
--- EXECUTE FILE: Building Part Functions
--- Defines building part registration functions used by all GP mods.
-GP:load("gp/parts.lua")
+-- -- EXECUTE FILE: Attach Functions
+-- -- Defines attach point registration functions used by all GP mods.
+-- GP:load("gp/attach.lua")
 
--- EXECUTE FILE: Building & Monument Functions
--- Defines building and monument registration functions used by all GP mods.
-GP:load("gp/buildings.lua")
+-- -- EXECUTE FILE: Path Functions
+-- -- Defines path registration functions used by all GP mods.
+-- GP:load("gp/paths.lua")
 
--- EXECUTE FILE: Job Registration Functions
--- Registers all jobs named in the config.
-GP:load("gp/jobs.lua")
+-- -- EXECUTE FILE: Model File Functions
+-- -- Defines .fbx model file functions used by all GP mods.
+-- GP:load("gp/models.lua")
 
--- EXECUTE FILE: Resource Generator Registration Functions
--- Registers all generator functions named in the config.
-GP:load("gp/generators.lua")
+-- -- EXECUTE FILE: Building Part Functions
+-- -- Defines building part registration functions used by all GP mods.
+-- GP:load("gp/parts.lua")
 
--- EXECUTE FILE: Workplace Registration Functions
--- Defines all workplace functions named in the config.
-GP:load("gp/workplaces.lua")
+-- -- EXECUTE FILE: Building & Monument Functions
+-- -- Defines building and monument registration functions used by all GP mods.
+-- GP:load("gp/buildings.lua")
 
--- EXECUTE FILE: Override Functions
--- Defines all override functions used by all GP mods.
-GP:load("gp/overrides.lua")
+-- -- EXECUTE FILE: Job Registration Functions
+-- -- Registers all jobs named in the config.
+-- GP:load("gp/jobs.lua")
 
--- EXECUTE FILE: Startup Sequence
--- Defines the startup sequence for this mod.
-GP:load("gp/startup.lua")
+-- -- EXECUTE FILE: Resource Generator Registration Functions
+-- -- Registers all generator functions named in the config.
+-- GP:load("gp/generators.lua")
+
+-- -- EXECUTE FILE: Workplace Registration Functions
+-- -- Defines all workplace functions named in the config.
+-- GP:load("gp/workplaces.lua")
+
+-- -- EXECUTE FILE: Override Functions
+-- -- Defines all override functions used by all GP mods.
+-- GP:load("gp/overrides.lua")
+
+-- -- EXECUTE FILE: Startup Sequence
+-- -- Defines the startup sequence for this mod.
+-- GP:load("gp/startup.lua")
+
+-- GP:load("gp/dependency.lua")
 
 -- CALL: Start your engines!
 -- Calls the defined functions in sequence to start the mod.

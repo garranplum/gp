@@ -12,6 +12,9 @@ local myMod, GP = ...
 -- HIGHER ORDER, RECURSIVE, FUNCTIONAL, UNKNOWN EFFECTS (1ST CLASS FUNCTION CALL)
 function GP:map(incomingTable, mapFunction, ...)
 
+    -- Remember array style table to process destructively.
+    local isArray = GP:isArray(incomingTable)
+
     -- Collect multiple arguments.
     local arguments = {...}
 
@@ -21,17 +24,30 @@ function GP:map(incomingTable, mapFunction, ...)
     -- If there's an item to process...
     if (item) then
 
+        -- Preserve original item for indexing arrays
+        local origItem = item
+
+        -- If array style table, return the value instead of the index
+        if isArray then item = incomingTable[item] end
+
         -- Apply the function to the item with all its arguments.
         mapFunction(item, unpack(arguments))
 
-        -- Copy the table so as not to affect it.
-        local copiedTable = GP:copyTable(incomingTable)
+        -- Process the original or a copy
+        local recurseTable = incomingTable
 
-        -- Remove the item from the copied table.
-        copiedTable[item] = nil
+        -- If not array style, use a copy
+        if not isArray then recurseTable = GP:copyTable(incomingTable) end
 
-        -- Call this function recursively to process the rest of the list.
-        GP:map(copiedTable, mapFunction, unpack(arguments))
+        -- Remove the item from the table to be recursed.
+        if isArray then
+            table.remove(recurseTable, origItem)
+        else
+            recurseTable[item] = nil
+        end
+
+        -- Call this function on the recurse table to process the rest of the list.
+        GP:map(recurseTable, mapFunction, unpack(arguments))
     end
 end
 
@@ -236,6 +252,11 @@ function GP:isFunction(object) return type(object) == "function" end
 -- Returns true if passed userdata.
 -- PURE FUNCTIONAL
 function GP:isUserdata(object) return type(object) == "userdata" end
+
+-- GP UTILITY FUNCTION isArray
+-- Returns true if a table is array style.
+-- PURE FUNCTIONAL
+function GP:isArray(object) return #object == GP:tableLength(object) end
 
 -- GP UTILITY FUNCTION File Path
 -- Returns a folder path string, file name, and folder array from a file path string.
