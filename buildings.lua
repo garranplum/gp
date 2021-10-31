@@ -68,12 +68,39 @@ function GP.registerMonument(buildingName, config)
         -- Get the parts in this category.
         local categoryPartsList = config.categories[categoryKey]
 
-        -- Sort parts by Order
-        local orderedPartKeys = {}
+        -- Group parts by Order
+        local groupedPartKeys = {}
+
+        -- Group part keys by order
         for partKey, partConfig in pairs(categoryPartsList) do
+
+            -- Support Order or Group syntax
+            partConfig.Order = partConfig.Order or partConfig.Group
+
+            -- Order specified?
             if (partConfig.Order) then
-                orderedPartKeys[partConfig.Order] = partKey
+
+                -- Create a new group, if necessary
+                if not groupedPartKeys[partConfig.Order] then
+                    groupedPartKeys[partConfig.Order] = {}
+                end
+
+                -- Add this key to its group
+                table.insert(groupedPartKeys[partConfig.Order], partKey)
             else
+
+                -- No order? Add this key to the last group.
+                table.insert(groupedPartKeys, {partKey})
+            end
+        end
+
+        -- Sort into final order based on groups
+        local orderedPartKeys = {}
+
+        -- Ungroup into a single ordered array
+        for index, partGroup in ipairs(groupedPartKeys) do
+            -- Add each part in the group to the final array.
+            for index, partKey in ipairs(partGroup) do
                 table.insert(orderedPartKeys, partKey)
             end
         end
