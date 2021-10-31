@@ -31,6 +31,7 @@ end
 -- FUNCTIONAL, GAME EFFECT
 function GP:registerWorkplace(workplaceName, workplaceConfig)
 
+    -- Build a ResourceProduced list from the {Produces} section.
     local resourceProducedList = {}
     if workplaceConfig.Produces then
         for oneResource, qty in pairs(workplaceConfig.Produces) do
@@ -42,6 +43,7 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
         end
     end
 
+    -- Build a ResourceRequired list from the {Requires} section.
     local resourceRequiredList = {}
     if workplaceConfig.Requires then
         for oneResource, qty in pairs(workplaceConfig.Requires) do
@@ -50,6 +52,15 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
                 Quantity = qty
             }
             table.insert(resourceRequiredList, resourceRequiredItem)
+        end
+    end
+
+    -- Build an InputInventoryCapacity list from the {Carries} section.
+    local inputCapacityList = {}
+    if workplaceConfig.Carries then
+        for oneResource, qty in pairs(workplaceConfig.Carries) do
+            local inputItem = {Resource = oneResource, Quantity = qty}
+            table.insert(inputCapacityList, inputItem)
         end
     end
 
@@ -62,6 +73,7 @@ function GP:registerWorkplace(workplaceName, workplaceConfig)
             Job = workplaceConfig.Job,
             Behavior = workplaceConfig.Behavior or GP.datatypes().job.behavior
         },
+        InputInventoryCapacity = inputCapacityList,
         ResourceProduced = resourceProducedList,
         ResourceListNeeded = resourceRequiredList
     }
