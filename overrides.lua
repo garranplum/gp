@@ -16,7 +16,19 @@ function GP.override(partId)
         Cost = {BuildRightTaxes = {}, UpkeepCost = {}, ResourceNeededList = {}},
         IsMovableWhenBuilt = true,
         IsOnlyAttached = false,
-        HasMaximumInstancePerBuilding = false
+        HasMaximumInstancePerBuilding = false,
+        BuildingZone = {
+            ZoneEntryList = {
+                {
+                    Polygon = polygon.createCircle(1, {0, 0}, 6),
+                    Type = {
+                        DEFAULT = true,
+                        NAVIGABLE = false,
+                        GRASS_CLEAR = true
+                    }
+                }
+            }
+        }
     })
 
     -- No returns. Function is called only for side effects.
