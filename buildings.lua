@@ -44,12 +44,48 @@ function GP.registerMonument(buildingName, config)
     local buildingPartsList = {}
     local requiredPartsList = {}
 
-    -- Sort categories by Order
-    local orderedCategoryKeys = {}
+    -- -- Sort categories by Order
+    -- local orderedCategoryKeys = {}
+    -- for categoryKey, categoryConfig in pairs(buildingConfig.Categories) do
+    --     if (categoryConfig.Order) then
+    --         orderedCategoryKeys[categoryConfig.Order] = categoryKey
+    --     else
+    --         table.insert(orderedCategoryKeys, categoryKey)
+    --     end
+    -- end
+
+    -- Group categories by order
+    local groupedCategoryKeys = {}
+
     for categoryKey, categoryConfig in pairs(buildingConfig.Categories) do
+
+        -- Support Order or Group syntax
+        categoryConfig.Order = categoryConfig.Order or categoryConfig.Group
+
+        -- Order specified?
         if (categoryConfig.Order) then
-            orderedCategoryKeys[categoryConfig.Order] = categoryKey
+
+            -- Create a new group, if necessary
+            if not groupedCategoryKeys[categoryConfig.Order] then
+                groupedCategoryKeys[categoryConfig.Order] = {}
+            end
+
+            -- Add this key to its group
+            table.insert(groupedCategoryKeys[categoryConfig.Order], categoryKey)
         else
+
+            -- No order? Add this key to the last group.
+            table.insert(groupedCategoryKeys, {categoryKey})
+        end
+    end
+
+    -- Sort into final order based on groups
+    local orderedCategoryKeys = {}
+
+    -- Ungroup into a single ordered array
+    for index, categoryGroup in ipairs(groupedCategoryKeys) do
+        -- Add each category in the group to the final array.
+        for index, categoryKey in ipairs(categoryGroup) do
             table.insert(orderedCategoryKeys, categoryKey)
         end
     end
