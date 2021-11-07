@@ -14,8 +14,7 @@ local datatypes = {
         constructor = "BUILDING_CONSTRUCTOR_DEFAULT",
         processor = "BUILDING_ASSET_PROCESSOR",
         generatorFunction = "BUILDING_FUNCTION_RESOURCE_GENERATOR",
-        generator = "BUILDING_RESOURCE_GENERATOR" .. "_" ..
-            string.upper(GP:config().modName),
+        generator = "GENERATOR",
         object = "GP_OBJECT_CLASS",
         component = "COMPONENT"
 

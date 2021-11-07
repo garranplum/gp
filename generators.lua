@@ -37,24 +37,34 @@ end
 -- REGISTER Class
 GP:registerClass(BUILDING_RESOURCE_GENERATOR)
 
-function GP:registerGenerator(generatorConfig)
+function GP:registerAllGenerators()
+
+    -- Map over generators, registering each base.
+    GP:map(GP:config().generators, GP.registerGeneratorBase)
+end
+
+function GP.registerGeneratorBase(resource)
+
+    -- BUILDING FUNCTION RESOURCE GENERATOR (Parent) Properties
+    GP:register({
+        DataType = GP:datatypes().building.generatorFunction,
+        Id = resource .. GP:magicWords().generator.functionIdSuffix,
+        ResourceGenerated = resource,
+        IsForConsumer = false,
+        IsInfinite = false
+    })
+
+end
+
+function GP:registerGenerator(generatorName, generatorConfig)
 
     for resource, maxQty in pairs(generatorConfig.Produces) do
-
-        -- BUILDING FUNCTION RESOURCE GENERATOR (Parent) Properties
-        GP:register({
-            DataType = GP:datatypes().building.generatorFunction,
-            Id = resource .. GP:magicWords().generator.functionIdSuffix,
-            ResourceGenerated = resource,
-            IsForConsumer = false,
-            IsInfinite = false
-        })
 
         -- BUILDING RESOURCE GENERATOR (New) Properties
         GP:register({
             DataType = GP:datatypes().building.generator,
-            Id = resource .. GP:magicWords().generator.idSuffix,
-            Name = resource .. GP:magicWords().generator.idSuffix,
+            Id = generatorName,
+            Name = generatorName,
             ResourceGenerator = resource ..
                 GP:magicWords().generator.functionIdSuffix,
             MaxQuantity = maxQty,

@@ -117,6 +117,18 @@ function GP:config()
         end
     end
 
+    -- Create base generators for resources used in workplaces.
+    for workplaceName, workplaceConfig in pairs(config.workplaces) do
+        -- Workplace produces without job? Create base generator for resource.
+        if workplaceConfig.Produces and not workplaceConfig.Job then
+            -- For each resource...
+            for resource, qty in pairs(workplaceConfig.Produces) do
+                -- Remember we need a generator
+                config.generators[resource] = config.generators[resource] or qty
+            end
+        end
+    end
+
     -- Return canonized copy.
     return GP:copyTable(config)
 end

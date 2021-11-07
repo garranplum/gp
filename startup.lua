@@ -13,6 +13,10 @@ function GP:startMod()
     -- Sugar for GP:config()
     local config = GP:config()
 
+    -- LOGGING Erase Log Folder
+    myMod:deleteDirectory(GP:magicWords().log.folder)
+
+    -- LOGGING Log Remix Config
     GP:writeTable(config, GP:magicWords().log.gps .. "/" .. GP:config().modName)
 
     -- STARTUP Register Model Files
@@ -20,6 +24,9 @@ function GP:startMod()
 
     -- STARTUP Register Jobs
     GP:registerAllJobs()
+
+    -- STARTUP Register Generators
+    GP:registerAllGenerators()
 
     -- STARTUP Register Workplaces
     GP:registerAllWorkplaces()

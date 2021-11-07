@@ -18,10 +18,10 @@ function GP:registerAllWorkplaces()
 
     for workplaceName, workplaceConfig in pairs(workplaceList) do
 
-        if (workplaceConfig.Job) then
+        if workplaceConfig.Job then
             GP:registerWorkplace(workplaceName, workplaceConfig)
         else
-            GP:registerGenerator(workplaceConfig)
+            GP:registerGenerator(workplaceName, workplaceConfig)
         end
 
     end
